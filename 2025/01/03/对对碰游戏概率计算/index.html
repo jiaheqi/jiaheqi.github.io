@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="77">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+        
+        
+        
+            <link rel="preconnect" href="https://evan.beee.top" crossorigin>
+        
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://jiaheqi.github.io/2025/01/03/对对碰游戏概率计算/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对对碰游戏概率计算">
+<meta property="og:url" content="https://jiaheqi.github.io/2025/01/03/%E5%AF%B9%E5%AF%B9%E7%A2%B0%E6%B8%B8%E6%88%8F%E6%A6%82%E7%8E%87%E8%AE%A1%E7%AE%97/index.html">
+<meta property="og:site_name" content="狗卷七">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jiaheqi.github.io/images/redefine-og.webp">
+<meta property="article:published_time" content="2025-01-03T10:30:15.000Z">
+<meta property="article:modified_time" content="2025-01-03T10:36:47.385Z">
+<meta property="article:author" content="77">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jiaheqi.github.io/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/back_april.png" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/back_april.png">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/back_april.png">
+    <!--- Page Info-->
+    
+    <title>
+        
+            对对碰游戏概率计算 | 狗卷七
+        
+    </title>
+
+    <link rel="stylesheet" href="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/fonts/Chillax/chillax.css">
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        <link rel="stylesheet" href="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/css/build/tailwind.css">
+    
+
+    <link rel="stylesheet" href="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/fonts/GeistMono/geist-mono.css">
+    <link rel="stylesheet" href="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/fonts/Geist/geist.css">
+    <!--- Font Part-->
+    
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Farsan&display=swap" rel="stylesheet">
+    
+    
+    
+        <script  src="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/js/build/libs/anime.min.js" ></script>
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"jiaheqi.github.io","root":"/","language":"zh-CN","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":5,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":true,"family":"Noto Sans SC","url":"https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"},"english":{"enable":"turnstileKey","family":"Farsan","url":"https://fonts.googleapis.com/css2?family=Farsan&display=swap"},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":true},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":true,"custom_message":null},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/back_april.png","dark":"/images/back_april.png"},"title":"狗卷七","subtitle":{"text":["如果我们能见面，那就是永远；如果我们不能见，那就是永远。"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/jiaheqi","instagram":null,"zhihu":null,"twitter":null,"email":"1097099589@qq.com"},"qrs":{"weixin":"/images/weixin.png"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"icon":"fa-solid fa-tags","path":"/tags"},"Shuoshuo":{"path":"/shuoshuo","icon":"fa-regular fa-chart-bar"},"相册":{"icon":"fa-solid fa-image","path":"/masonry"},"Categories":{"icon":"fa-solid fa-folder","path":"/categories"},"About":{"icon":"fa-regular fa-user","submenus":{"Me":"/about","Github":"https://github.com/jiaheqi"}},"Friends":{"icon":"fa-regular fa-link","path":"/links/"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"cloud"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":"希望每一天的自己都比昨天更优秀！","show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":5},"tags":{"enable":true,"limit":100}},"footerStart":"2025/1/1 00:00:00"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    <link rel="stylesheet" href="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/fontawesome/fontawesome.min.css">
+    <link rel="stylesheet" href="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/fontawesome/brands.min.css">
+    <link rel="stylesheet" href="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/fontawesome/solid.min.css">
+    <link rel="stylesheet" href="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/fontawesome/regular.min.css">
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    <h2 class="ml13">
+        狗卷七
+    </h2>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+        var animation = anime.timeline({ loop: true })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [20, 0],
+                translateZ: 0,
+                opacity: [0, 1],
+                filter: ['blur(5px)', 'blur(0px)'],
+                easing: "easeOutExpo",
+                duration: 1200,
+                delay: (el, i) => 300 + 20 * i,
+            })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [0, -20],
+                opacity: [1, 0],
+                filter: ['blur(0px)', 'blur(5px)'],
+                easing: "easeInExpo",
+                duration: 1000,
+                delay: (el, i) => 15 * i,
+                complete: function() {
+                    hidePreloader();
+                }
+            }, '-=700');
+
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
+        });
+
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 200);
+        }
+    </script>
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                狗卷七
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    归档
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/tags"
+                                        >
+                                    <i class="fa-solid fa-tags fa-fw"></i>
+                                    标签
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/shuoshuo"
+                                        >
+                                    <i class="fa-regular fa-chart-bar fa-fw"></i>
+                                    说说
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/masonry"
+                                        >
+                                    <i class="fa-solid fa-image fa-fw"></i>
+                                    相册
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/categories"
+                                        >
+                                    <i class="fa-solid fa-folder fa-fw"></i>
+                                    分类
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    关于
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/about">
+                                                    ME
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/jiaheqi">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/links/"
+                                        >
+                                    <i class="fa-regular fa-link fa-fw"></i>
+                                    友情链接
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                归档
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/tags"
+                        >
+                            <span>
+                                标签
+                            </span>
+                            
+                                <i class="fa-solid fa-tags fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/shuoshuo"
+                        >
+                            <span>
+                                说说
+                            </span>
+                            
+                                <i class="fa-regular fa-chart-bar fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/masonry"
+                        >
+                            <span>
+                                相册
+                            </span>
+                            
+                                <i class="fa-solid fa-image fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/categories"
+                        >
+                            <span>
+                                分类
+                            </span>
+                            
+                                <i class="fa-solid fa-folder fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                关于
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/about">ME</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/jiaheqi">GITHUB</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/links/"
+                        >
+                            <span>
+                                友情链接
+                            </span>
+                            
+                                <i class="fa-regular fa-link fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">3</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">1</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">6</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">对对碰游戏概率计算</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/touxiang.png">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">77</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv1</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2025-01-03 18:30:15</span>
+        <span class="mobile">2025-01-03 18:30:15</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2025-01-03 18:36:47</span>
+            <span class="mobile">2025-01-03 18:36:47</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/python/">python</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>2.6k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>11 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h2 id="🎮游戏规则"><a href="#🎮游戏规则" class="headerlink" title="🎮游戏规则"></a>🎮游戏规则</h2><ol>
+<li>牌堆包含 1-9 每个数字 5 张，以及一张 luck 运气牌，总共 46 张牌；</li>
+<li>游戏开始，选择一个许愿数字，初始化游戏区从牌堆随机抽取 9 张牌，抽走后，牌堆需要去除这9张牌；</li>
+<li>游戏区每次匹配2张相同数字的牌，得 1 分，移除匹配牌并从牌堆抽取补充 1 张新牌，随机补充的牌是可能和游戏区的数字相同的；</li>
+<li>如果游戏区出现luck运气牌则从牌堆抽取补充 3 张新牌，补充的3张牌之间可能相同，也可能不同，补充的3张牌是可能和游戏区的数字相同的；</li>
+<li>如果游戏区出现许愿数字，匹配2张该许愿数字的牌后，不仅补充 1 张牌，还要从牌堆抽取补充 2 张额外的牌，总共从牌堆抽取补充 3 张；</li>
+<li>如果最终得分大于等于5，那么再从牌堆抽取1张，如果出现匹配2张相同数字的牌，则重复上述操作，然后再计算最终得分；</li>
+<li>记录每次模拟得到最高得分，并记录得到最高得分时的匹配和补充牌的详情；</li>
+<li>每次模拟次数1w次；</li>
+<li>最后统计每个分值出现次数，并生成正态分布图。</li>
+</ol>
+<h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Counter</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化牌堆：包含1-9每个数字5张，以及1张luck运气牌</span></span><br><span class="line">deck = [i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">10</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>)] + [<span class="string">&#x27;luck&#x27;</span>]</span><br><span class="line"><span class="built_in">print</span>(deck)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 规则参数</span></span><br><span class="line">initial_game_zone_size = <span class="number">9</span>  <span class="comment"># 初始游戏区的牌数</span></span><br><span class="line">max_card_count = <span class="number">5</span>  <span class="comment"># 每个数字出现的最大次数</span></span><br><span class="line">max_luck_count = <span class="number">1</span>  <span class="comment"># 运气牌最大出现次数</span></span><br><span class="line">max_total_cards = <span class="number">46</span>  <span class="comment"># 总牌数上限</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 游戏区的初始化</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">draw_initial_game_zone</span>():</span><br><span class="line">    <span class="built_in">print</span>(random.sample(deck, initial_game_zone_size))</span><br><span class="line">    <span class="keyword">return</span> random.sample(deck, initial_game_zone_size)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 从牌堆中随机抽取牌</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">draw_from_deck</span>(<span class="params">deck, total_counter</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> deck:  <span class="comment"># 检查牌堆是否为空</span></span><br><span class="line">        <span class="keyword">raise</span> ValueError(<span class="string">&quot;牌堆已空，无法继续抽牌！&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 避免违反规则：检查每个数字和运气牌的数量</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        card = random.choice(deck)  <span class="comment"># 选择一个元素不做删除</span></span><br><span class="line">        total_counter.update([card])</span><br><span class="line">        <span class="comment"># 统计游戏区中每个卡牌的数量</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">isinstance</span>(card, <span class="built_in">int</span>) <span class="keyword">and</span> total_counter[card] &gt; max_card_count:</span><br><span class="line">            <span class="keyword">continue</span>  <span class="comment"># 如果该数字的出现次数已达到上限，继续选择</span></span><br><span class="line">        <span class="keyword">elif</span> card == <span class="string">&#x27;luck&#x27;</span> <span class="keyword">and</span> total_counter[<span class="string">&#x27;luck&#x27;</span>] &gt; max_luck_count:</span><br><span class="line">            <span class="keyword">continue</span>  <span class="comment"># 如果运气牌已达到上限，继续选择</span></span><br><span class="line">        <span class="keyword">elif</span> <span class="built_in">len</span>(deck) &gt; max_total_cards:</span><br><span class="line">            <span class="keyword">continue</span>  <span class="comment"># 如果总牌数超出上限，继续选择</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 一旦选中符合条件的卡牌，就可以返回</span></span><br><span class="line">        deck.remove(card)  <span class="comment"># 从排堆拿走抽走的牌</span></span><br><span class="line">        <span class="keyword">return</span> card</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行游戏</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">play_game</span>():</span><br><span class="line">    score = <span class="number">0</span></span><br><span class="line">    deck_copy = deck.copy()  <span class="comment"># 副本用来模拟游戏</span></span><br><span class="line">    <span class="comment"># 用于统计所有曾经出现过的卡片的总次数</span></span><br><span class="line">    game_zone = draw_initial_game_zone()  <span class="comment"># 随机抽取9张牌</span></span><br><span class="line">    game_zone_counter = Counter(game_zone)</span><br><span class="line">    <span class="comment"># 用于统计所有曾经出现过的卡片的总次数</span></span><br><span class="line">    total_counter = Counter(game_zone)  <span class="comment"># 计算每个数字在游戏区中的数量</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 随机选择许愿数字，范围从1到9</span></span><br><span class="line">    wish_number = random.choice(<span class="built_in">range</span>(<span class="number">1</span>, <span class="number">10</span>))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;本轮游戏的许愿数字是: <span class="subst">&#123;wish_number&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;初始游戏区: <span class="subst">&#123;game_zone&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 记录抽牌顺序</span></span><br><span class="line">    draw_sequence = []</span><br><span class="line">    game_zone_history = []  <span class="comment"># 用于记录游戏区每次的变化</span></span><br><span class="line">    card_additions = []  <span class="comment"># 用于记录每一步补充了哪些牌以及补充的原因</span></span><br><span class="line">    current_total_counter = []</span><br><span class="line">    additional_card_step = <span class="literal">None</span>  <span class="comment"># 用于标记哪一步因为得分大于等于5而增加了一张牌</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> <span class="built_in">any</span>(count &gt;= <span class="number">2</span> <span class="keyword">for</span> count <span class="keyword">in</span> game_zone_counter.values()):  <span class="comment"># 游戏继续直到没有可匹配的牌</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;当前游戏区: <span class="subst">&#123;game_zone&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;当前得分: <span class="subst">&#123;score&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 记录当前游戏区的状态</span></span><br><span class="line">        game_zone_history.append(game_zone.copy())</span><br><span class="line">        current_total_counter.append(total_counter.copy())</span><br><span class="line">        <span class="comment"># 查找是否有可以匹配的数字（数量大于等于2）</span></span><br><span class="line">        matched = <span class="literal">False</span></span><br><span class="line">        <span class="keyword">for</span> number, count <span class="keyword">in</span> game_zone_counter.items():</span><br><span class="line">            <span class="keyword">if</span> count &gt;= <span class="number">2</span>:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">f&quot;匹配数字 <span class="subst">&#123;number&#125;</span>，得分 +1&quot;</span>)</span><br><span class="line">                <span class="comment"># 记录需要删除的索引</span></span><br><span class="line">                to_remove_indices = []</span><br><span class="line">                <span class="comment"># 确保只移除前两个</span></span><br><span class="line">                removed_count = <span class="number">0</span></span><br><span class="line">                <span class="keyword">for</span> i, card <span class="keyword">in</span> <span class="built_in">enumerate</span>(game_zone):</span><br><span class="line">                    <span class="keyword">if</span> card == number <span class="keyword">and</span> removed_count &lt; <span class="number">2</span>:</span><br><span class="line">                        to_remove_indices.append(i)</span><br><span class="line">                        removed_count += <span class="number">1</span></span><br><span class="line">                        <span class="keyword">if</span> removed_count == <span class="number">2</span>:</span><br><span class="line">                            <span class="keyword">break</span>  <span class="comment"># 已经移除两个，跳出循环</span></span><br><span class="line">                <span class="comment"># 删除记录的卡牌</span></span><br><span class="line">                <span class="keyword">for</span> index <span class="keyword">in</span> <span class="built_in">sorted</span>(to_remove_indices, reverse=<span class="literal">True</span>):  <span class="comment"># 反向删除避免索引变化</span></span><br><span class="line">                    game_zone.pop(index)</span><br><span class="line"></span><br><span class="line">                score += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">                <span class="comment"># 处理补充牌的部分，确保每次只补充3张牌</span></span><br><span class="line">                <span class="keyword">if</span> number == wish_number:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">f&quot;许愿数字 <span class="subst">&#123;number&#125;</span> 匹配成功，补充3张牌&quot;</span>)</span><br><span class="line">                    added_cards = []  <span class="comment"># 用来记录补充的卡牌</span></span><br><span class="line">                    <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">                        new_card = draw_from_deck(deck_copy, total_counter)</span><br><span class="line">                        game_zone.append(new_card)  <span class="comment"># 将新卡加入游戏区</span></span><br><span class="line">                        added_cards.append(new_card)  <span class="comment"># 将新卡加入记录的补充卡牌列表</span></span><br><span class="line">                        draw_sequence.append(new_card)  <span class="comment"># 记录抽牌顺序</span></span><br><span class="line">                    card_additions.append((added_cards, <span class="string">f&quot;许愿数字 <span class="subst">&#123;number&#125;</span> 匹配成功，补充3张牌:<span class="subst">&#123;added_cards&#125;</span>&quot;</span>))</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">f&quot;补充1张牌到游戏区&quot;</span>)</span><br><span class="line">                    added_cards = [draw_from_deck(deck_copy, total_counter)]</span><br><span class="line">                    game_zone.extend(added_cards)  <span class="comment"># 扩展游戏区，添加1张牌</span></span><br><span class="line">                    card_additions.append((added_cards, <span class="string">f&quot;匹配数字 <span class="subst">&#123;number&#125;</span>，补充1张牌<span class="subst">&#123;added_cards&#125;</span>&quot;</span>))</span><br><span class="line">                    draw_sequence.extend(added_cards)  <span class="comment"># 记录抽牌顺序充1张牌&quot;))</span></span><br><span class="line"></span><br><span class="line">                matched = <span class="literal">True</span></span><br><span class="line">                <span class="keyword">break</span>  <span class="comment"># 在一轮中匹配一对即可</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 如果抽到运气牌，补充3张新牌</span></span><br><span class="line">        <span class="keyword">if</span> <span class="string">&#x27;luck&#x27;</span> <span class="keyword">in</span> game_zone:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;运气牌触发，补充3张牌&quot;</span>)</span><br><span class="line">            game_zone.remove(<span class="string">&#x27;luck&#x27;</span>)</span><br><span class="line">            added_cards = []</span><br><span class="line">            <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">                new_card = draw_from_deck(deck_copy, total_counter)</span><br><span class="line">                game_zone.append(new_card)</span><br><span class="line">                added_cards.append(new_card)</span><br><span class="line">                draw_sequence.append(new_card)  <span class="comment"># 记录抽牌顺序</span></span><br><span class="line">            card_additions.append((added_cards, <span class="string">&quot;运气牌触发，补充3张牌&quot;</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 更新game_zone_counter</span></span><br><span class="line">        game_zone_counter = Counter(game_zone)</span><br><span class="line">        <span class="built_in">print</span>(game_zone_counter)</span><br><span class="line">        <span class="comment"># 如果没有匹配的牌并且没有运气牌，结束游戏</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> matched <span class="keyword">and</span> <span class="string">&#x27;luck&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> game_zone:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;正常游戏结束！最终得分：<span class="subst">&#123;score&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="comment"># 记录正常游戏结束后游戏区</span></span><br><span class="line">    game_zone_history.append(game_zone.copy())</span><br><span class="line">    current_total_counter.append(total_counter.copy())</span><br><span class="line">    <span class="comment"># 额外规则：如果得分大于等于5，并且牌堆中还有牌，继续抽一张牌</span></span><br><span class="line">    <span class="keyword">if</span> score &gt;= <span class="number">5</span> <span class="keyword">and</span> deck_copy:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;得分大于等于5，奶一口继续从牌堆中抽一张牌并计算新的得分。&quot;</span>)</span><br><span class="line">        <span class="comment"># new_card = draw_from_deck(deck_copy, total_counter)</span></span><br><span class="line">        <span class="comment"># game_zone.append(new_card)</span></span><br><span class="line">        <span class="comment"># draw_sequence.append(new_card)  # 记录抽牌顺序</span></span><br><span class="line">        <span class="comment"># additional_card_step = len(game_zone_history) + 1  # 标记在哪一步增加了一张牌</span></span><br><span class="line">        <span class="comment"># print(f&quot;奶一口新抽取的牌: &#123;new_card&#125;&quot;)</span></span><br><span class="line">        added_cards = [draw_from_deck(deck_copy, total_counter)]</span><br><span class="line">        game_zone.extend(added_cards)  <span class="comment"># 扩展游戏区，添加1张牌</span></span><br><span class="line">        game_zone_history.append(game_zone.copy())</span><br><span class="line">        current_total_counter.append(total_counter.copy())</span><br><span class="line">        card_additions.append((added_cards, <span class="string">f&quot;满足奶一口规则，补充1张牌<span class="subst">&#123;added_cards&#125;</span>&quot;</span>))</span><br><span class="line">        draw_sequence.extend(added_cards)  <span class="comment"># 记录抽牌顺序充1张牌&quot;))</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;奶一口新抽取的牌: <span class="subst">&#123;added_cards&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 重新计算得分</span></span><br><span class="line">        game_zone_counter = Counter(game_zone)</span><br><span class="line">        new_score = score</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 查找奶一口后是否有可以匹配的数字（数量大于等于2）</span></span><br><span class="line">        milk_matched = <span class="literal">False</span></span><br><span class="line">        <span class="comment"># 查找是否有可以匹配的数字（数量大于等于2）</span></span><br><span class="line">        <span class="keyword">for</span> number, count <span class="keyword">in</span> game_zone_counter.items():</span><br><span class="line">            <span class="keyword">if</span> count &gt;= <span class="number">2</span>:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">f&quot;奶一口后匹配数字 <span class="subst">&#123;number&#125;</span>，得分 +1&quot;</span>)</span><br><span class="line">                <span class="comment"># 记录需要删除的索引</span></span><br><span class="line">                to_remove_indices = []</span><br><span class="line">                <span class="comment"># 确保只移除前两个</span></span><br><span class="line">                removed_count = <span class="number">0</span></span><br><span class="line">                <span class="keyword">for</span> i, card <span class="keyword">in</span> <span class="built_in">enumerate</span>(game_zone):</span><br><span class="line">                    <span class="keyword">if</span> card == number <span class="keyword">and</span> removed_count &lt; <span class="number">2</span>:</span><br><span class="line">                        to_remove_indices.append(i)</span><br><span class="line">                        removed_count += <span class="number">1</span></span><br><span class="line">                        <span class="keyword">if</span> removed_count == <span class="number">2</span>:</span><br><span class="line">                            <span class="keyword">break</span>  <span class="comment"># 已经移除两个，跳出循环</span></span><br><span class="line">                <span class="comment"># 删除记录的卡牌</span></span><br><span class="line">                <span class="keyword">for</span> index <span class="keyword">in</span> <span class="built_in">sorted</span>(to_remove_indices, reverse=<span class="literal">True</span>):  <span class="comment"># 反向删除避免索引变化</span></span><br><span class="line">                    game_zone.pop(index)</span><br><span class="line"></span><br><span class="line">                new_score += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">                <span class="comment"># 处理补充牌的部分，确保每次只补充3张牌</span></span><br><span class="line">                <span class="keyword">if</span> number == wish_number:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">f&quot;奶一口后许愿数字 <span class="subst">&#123;number&#125;</span> 匹配成功，补充3张牌&quot;</span>)</span><br><span class="line">                    added_cards = []  <span class="comment"># 用来记录补充的卡牌</span></span><br><span class="line">                    <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">                        new_card = draw_from_deck(deck_copy, total_counter)</span><br><span class="line">                        game_zone.append(new_card)  <span class="comment"># 将新卡加入游戏区</span></span><br><span class="line">                        added_cards.append(new_card)  <span class="comment"># 将新卡加入记录的补充卡牌列表</span></span><br><span class="line">                        draw_sequence.append(new_card)  <span class="comment"># 记录抽牌顺序</span></span><br><span class="line">                    game_zone_history.append(game_zone.copy())</span><br><span class="line">                    current_total_counter.append(total_counter.copy())</span><br><span class="line">                    card_additions.append((added_cards, <span class="string">f&quot;奶一口后许愿数字 <span class="subst">&#123;number&#125;</span> 匹配成功，补充3张牌:<span class="subst">&#123;added_cards&#125;</span>&quot;</span>))</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">f&quot;奶一口后补充1张牌到游戏区&quot;</span>)</span><br><span class="line">                    added_cards = [draw_from_deck(deck_copy, total_counter)]</span><br><span class="line">                    game_zone.extend(added_cards)  <span class="comment"># 扩展游戏区，添加1张牌</span></span><br><span class="line">                    game_zone_history.append(game_zone.copy())</span><br><span class="line">                    current_total_counter.append(total_counter.copy())</span><br><span class="line">                    card_additions.append((added_cards, <span class="string">f&quot;奶一口后匹配数字 <span class="subst">&#123;number&#125;</span>，补充1张牌<span class="subst">&#123;added_cards&#125;</span>&quot;</span>))</span><br><span class="line">                    draw_sequence.extend(added_cards)  <span class="comment"># 记录抽牌顺序充1张牌&quot;))</span></span><br><span class="line"></span><br><span class="line">                milk_matched = <span class="literal">True</span></span><br><span class="line">                <span class="keyword">break</span>  <span class="comment"># 在一轮中匹配一对即可</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 如果抽到运气牌，补充3张新牌</span></span><br><span class="line">        <span class="keyword">if</span> <span class="string">&#x27;luck&#x27;</span> <span class="keyword">in</span> game_zone:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;奶一口后运气牌触发，补充3张牌&quot;</span>)</span><br><span class="line">            game_zone.remove(<span class="string">&#x27;luck&#x27;</span>)</span><br><span class="line">            added_cards = []</span><br><span class="line">            <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">                new_card = draw_from_deck(deck_copy, total_counter)</span><br><span class="line">                game_zone.append(new_card)</span><br><span class="line">                added_cards.append(new_card)</span><br><span class="line">                draw_sequence.append(new_card)  <span class="comment"># 记录抽牌顺序</span></span><br><span class="line">            game_zone_history.append(game_zone.copy())</span><br><span class="line">            current_total_counter.append(total_counter.copy())</span><br><span class="line">            card_additions.append((added_cards, <span class="string">&quot;奶一口后运气牌触发，补充3张牌&quot;</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 更新game_zone_counter</span></span><br><span class="line">        game_zone_counter = Counter(game_zone)</span><br><span class="line">        <span class="built_in">print</span>(game_zone_counter)</span><br><span class="line">        <span class="comment"># 如果没有匹配的牌并且没有运气牌，结束游戏</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> milk_matched <span class="keyword">and</span> <span class="string">&#x27;luck&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> game_zone:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;奶一口后也无法再加分&quot;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;奶一口之后的新得分：<span class="subst">&#123;new_score&#125;</span>&quot;</span>)</span><br><span class="line">        score = new_score</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> score, draw_sequence, wish_number, game_zone_history,current_total_counter, card_additions, additional_card_step  <span class="comment"># 返回得分、抽牌顺序、许愿数字和增加牌的步骤</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 模拟多次游戏，计算不同分数出现的频率</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">monte_carlo_simulation</span>(<span class="params">num_simulations=<span class="number">500000</span></span>):</span><br><span class="line">    highest_score = <span class="number">0</span></span><br><span class="line">    highest_score_sequence = []  <span class="comment"># 记录最高得分时的抽牌顺序</span></span><br><span class="line">    highest_wish_number = <span class="literal">None</span>  <span class="comment"># 记录最高得分时的许愿数字</span></span><br><span class="line">    highest_game_zone_history = []  <span class="comment"># 记录最高得分时的游戏区变化</span></span><br><span class="line">    highest_current_total_counter = []</span><br><span class="line">    highest_card_additions = []  <span class="comment"># 记录最高得分时的每步牌补充详情</span></span><br><span class="line">    highest_additional_card_step = <span class="literal">None</span>  <span class="comment"># 记录最高得分时增加牌的步骤</span></span><br><span class="line">    scores = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(num_simulations):</span><br><span class="line">        score, draw_sequence, wish_number, game_zone_history, current_total_counter,card_additions, additional_card_step = play_game()</span><br><span class="line">        scores.append(score)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 跟踪最高得分的模拟</span></span><br><span class="line">        <span class="keyword">if</span> score &gt; highest_score:</span><br><span class="line">            highest_score = score</span><br><span class="line">            highest_score_sequence = draw_sequence</span><br><span class="line">            highest_wish_number = wish_number</span><br><span class="line">            highest_game_zone_history = game_zone_history</span><br><span class="line">            highest_current_total_counter  = current_total_counter</span><br><span class="line">            highest_card_additions = card_additions</span><br><span class="line">            highest_additional_card_step = additional_card_step</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 绘制得分分布</span></span><br><span class="line">    plt.hist(scores, bins=<span class="built_in">range</span>(<span class="built_in">min</span>(scores), <span class="built_in">max</span>(scores) + <span class="number">1</span>), edgecolor=<span class="string">&#x27;black&#x27;</span>)</span><br><span class="line">    plt.xlabel(<span class="string">&#x27;得分&#x27;</span>)</span><br><span class="line">    plt.ylabel(<span class="string">&#x27;出现次数&#x27;</span>)</span><br><span class="line">    plt.title(<span class="string">f&#x27;游戏得分分布（模拟 <span class="subst">&#123;num_simulations&#125;</span> 次）&#x27;</span>)</span><br><span class="line">    plt.show()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> highest_score, highest_score_sequence, highest_wish_number, highest_game_zone_history,highest_current_total_counter, highest_card_additions, highest_additional_card_step</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 进行多次模拟</span></span><br><span class="line">highest_score, highest_score_sequence, highest_wish_number, highest_game_zone_history,highest_current_total_counter, highest_card_additions, highest_additional_card_step = monte_carlo_simulation()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;最高得分: <span class="subst">&#123;highest_score&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;最高得分时的抽牌顺序: <span class="subst">&#123;highest_score_sequence&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;最高得分时的许愿数字: <span class="subst">&#123;highest_wish_number&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印最高得分时的游戏区变化</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;最高得分时的游戏区变化:&quot;</span>)</span><br><span class="line"><span class="comment"># for idx, history in enumerate(highest_game_zone_history, start=1):</span></span><br><span class="line"><span class="keyword">for</span> idx, (history, used_count) <span class="keyword">in</span> <span class="built_in">enumerate</span>(<span class="built_in">zip</span>(highest_game_zone_history, highest_current_total_counter), start=<span class="number">1</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;步骤 <span class="subst">&#123;idx&#125;</span>: <span class="subst">&#123;history&#125;</span>，已经用掉的卡牌次数：<span class="subst">&#123;used_count&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印每步牌补充的详细信息</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;最高得分时的每步牌补充详情:&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> idx, (cards, reason) <span class="keyword">in</span> <span class="built_in">enumerate</span>(highest_card_additions, start=<span class="number">1</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;步骤 <span class="subst">&#123;idx&#125;</span>: <span class="subst">&#123;reason&#125;</span> -&gt; 补充了: <span class="subst">&#123;cards&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;最高得分时增加牌的步骤: <span class="subst">&#123;highest_additional_card_step&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="游戏结果"><a href="#游戏结果" class="headerlink" title="游戏结果"></a>游戏结果</h2><p>正态分布图<br><a href="images/mdimages/2025-01-03-18-35-53.png">2025-01-03-18-35-53.png</a><br>最高得分计算<br><a href="images/mdimages/2025-01-03-18-36-26.png">2025-01-03-18-36-26.png</a></p>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> 对对碰游戏概率计算</li>
+        <li><strong>作者:</strong> 77</li>
+        <li><strong>创建于
+                :</strong> 2025-01-03 18:30:15</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2025-01-03 18:36:47
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://jiaheqi.github.io/2025/01/03/对对碰游戏概率计算/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/python/">#python</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2025/01/03/Android-apk%E5%8F%8D%E7%BC%96%E8%AF%91%E4%B8%8E%E7%AF%A1%E6%94%B9/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">Android apk反编译与篡改</span>
+						<span class="post-nav-item">下一篇</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://waline.jiaheqi.cloud',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">目录</div>
+		<div class="page-title">对对碰游戏概率计算</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8E%AE%E6%B8%B8%E6%88%8F%E8%A7%84%E5%88%99"><span class="nav-text">🎮游戏规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BA%90%E7%A0%81"><span class="nav-text">源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B8%B8%E6%88%8F%E7%BB%93%E6%9E%9C"><span class="nav-text">游戏结果</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+            <div class="customize-info my-1">这就是我们，凝固在时间里，固定在一个我们这辈子都再也回不去的瞬间，这太神奇了。</div>
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2025</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">77</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共撰写了 6 篇文章
+                    </span>
+                    
+                        <span>
+                            共 3.5k 字
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
+        </div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="站内搜索您需要的内容..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+<script  src="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/js/build/libs/Swup.min.js" ></script><script  src="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/js/build/libs/SwupSlideTheme.min.js" ></script><script  src="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/js/build/libs/SwupScriptsPlugin.min.js" ></script><script  src="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/js/build/libs/SwupProgressPlugin.min.js" ></script><script  src="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/js/build/libs/SwupScrollPlugin.min.js" ></script><script  src="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/js/build/libs/SwupPreloadPlugin.min.js" ></script>
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	<script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/js/build/tools/imageViewer.js" ></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/js/build/utils.js" ></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/js/build/main.js" ></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/js/build/layouts/navbarShrink.js" ></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/js/build/tools/scrollTopBottom.js" ></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/js/build/tools/lightDarkSwitch.js" ></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/js/build/layouts/categoryList.js" ></script>
+
+
+    <script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/js/build/tools/localSearch.js" ></script>
+
+
+
+    <script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/js/build/tools/codeBlock.js" ></script>
+
+
+
+    <script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/js/build/layouts/lazyload.js" ></script>
+
+
+
+    <script  src="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/js/build/tools/runtime.js" ></script>
+    <script  src="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/js/build/libs/odometer.min.js" ></script>
+    <link rel="stylesheet" href="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/assets/odometer-theme-minimal.css">
+
+
+
+  <script  src="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/js/build/libs/Typed.min.js" ></script>
+  <script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/js/build/plugins/typed.js" ></script>
+
+
+
+
+
+    <script  src="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/js/build/libs/minimasonry.min.js" ></script>
+    <script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/js/build/plugins/masonry.js" ></script>
+
+
+
+
+
+
+    <script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/js/build/tools/tocToggle.js" data-swup-reload-script></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/js/build/layouts/toc.js" data-swup-reload-script></script><script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/js/build/plugins/tabs.js" data-swup-reload-script></script>
+
+
+<script  src="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/js/build/libs/moment-with-locales.min.js" data-swup-reload-script></script>
+<script type="module" src="https://evan.beee.top/projects/hexo-theme-redefine@2.8.2/source/js/build/layouts/essays.js" data-swup-reload-script></script>
+
+
+
+
+	
+</body>
+
+</html>
