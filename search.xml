@@ -244,23 +244,19 @@
 <h3 id="如果是视频"><a href="#如果是视频" class="headerlink" title="如果是视频"></a>如果是视频</h3><p>其实原理就是把视频拆分成一帧一帧的图片，先处理一张张图片，然后再合成成视频。</p>
 <ol>
 <li><p>Use ffmpeg to extract frames from a video (Remember to create the folder <code>tmp_frames</code> ahead)<br>创建解压目录tmp_frames，ffmpeg 需要手动安装一下 <code>brew install ffmpeg</code></p>
-<p> <code>ffmpeg -i onepiece_demo.mp4 -qscale:v 1 -qmin 1 -qmax 1 -vsync 0 tmp_frames/frame%08d.jpg</code></p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">ffmpeg -i onepiece_demo.mp4 -qscale:v 1 -qmin 1 -qmax 1 -vsync 0 tmp_frames/frame%08d.jpg</span><br></pre></td></tr></table></figure></div>
 </li>
-<li><p>Inference with Real-ESRGAN executable file (Remember to create the folder <code>out_frames</code> ahead)<br>创建处理输出目录out_frames，使用模型realesr-animevideov3，放大倍数2，输出格式jpg（也可以使用提供的其他模型）<br> <code>./realesrgan-ncnn-vulkan -i tmp_frames -o out_frames -n realesr-animevideov3 -s 2 -f jpg</code></p>
+<li><p>Inference with Real-ESRGAN executable file (Remember to create the folder <code>out_frames</code> ahead)<br>创建处理输出目录out_frames，使用模型realesr-animevideov3，放大倍数2，输出格式jpg（也可以使用提供的其他模型）</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">./realesrgan-ncnn-vulkan -i tmp_frames -o out_frames -n realesr-animevideov3 -s 2 -f jpg</span><br></pre></td></tr></table></figure></div>
 </li>
-<li><p>Merge the enhanced frames back into a video<br>把处理输出的图片再集成成视频<br> <code>ffmpeg -i out_frames/frame%08d.jpg -i onepiece_demo.mp4 -map 0:v:0 -map 1:a:0 -c:a copy -c:v libx264 -r 23.98 -pix_fmt yuv420p output_w_audio.mp4</code></p>
-</li>
+<li><p>Merge the enhanced frames back into a video<br>把处理输出的图片再集成成视频</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">ffmpeg -i out_frames/frame%08d.jpg -i onepiece_demo.mp4 -map 0:v:0 -map 1:a:0 -c:a copy -c:v libx264 -r 23.98 -pix_fmt yuv420p output_w_audio.mp4</span><br></pre></td></tr></table></figure></div></li>
 </ol>
 <h2 id="使用效果对比"><a href="#使用效果对比" class="headerlink" title="使用效果对比"></a>使用效果对比</h2><p>这个是我源文件的分辨率的预览<br><img  
                      lazyload
                      src="/images/loading.svg"
                      data-src="/images/mdimages/2025-01-06-15-57-52.png"
                       alt="2025-01-06-15-57-52.png"
-                ><br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-01-06-15-58-09.png"
-                      alt="2025-01-06-15-58-09.png"
                 ></p>
 <p>这个是使用模型RealESRGAN_x4plus.pth处理后的结果，分辨率接近 8K(源文件太大了，直接粘进来很卡就截了一张对比图，可能效果不明显，可以自己体验一下，对比真的很明显)<br><img  
                      lazyload
