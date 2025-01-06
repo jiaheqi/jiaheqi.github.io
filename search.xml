@@ -193,4 +193,92 @@
         <tag>python</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Real-ESRGAN 图像和视频AI修复工具使用</title>
+    <url>/2025/01/06/Real-ESRGAN-%E5%9B%BE%E5%83%8F%E5%92%8C%E8%A7%86%E9%A2%91AI%E4%BF%AE%E5%A4%8D%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在我们的日常中，对于一些年代比较久远的图片 or 视频，我们希望可以进行一些修复，但是现在很多软件都比较耗费性能，或者需要付费，我们希望有一个比较轻量级的软件，可以进行一些修复，并且可以免费使用。<br>然后在 github 偶然发现了这个工具，记录一下使用的过程和遇到的问题。</p>
+<h2 id="前置准备"><a href="#前置准备" class="headerlink" title="前置准备"></a>前置准备</h2><blockquote>
+<p>工具 github地址 <a class="link"   href="https://github.com/xinntao/Real-ESRGAN" >Real-ESRGAN<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+</blockquote>
+<ol>
+<li><p>克隆代码到本地 <code>git clone https://github.com/xinntao/Real-ESRGAN.git</code></p>
+</li>
+<li><p>安装依赖 <code>pip install basicsr</code><br>这时候遇到了报错，basicsr 安装失败，错误信息</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">pip install basicsr</span><br><span class="line">Collecting basicsr</span><br><span class="line">Using cached basicsr-1.4.2.tar.gz (172 kB)</span><br><span class="line">Installing build dependencies ... done</span><br><span class="line">Getting requirements to build wheel ... error</span><br><span class="line">error: subprocess-exited-with-error</span><br><span class="line"></span><br><span class="line">× Getting requirements to build wheel did not run successfully.</span><br><span class="line">│ exit code: 1</span><br><span class="line">╰─&gt; [24 lines of output]</span><br><span class="line">      Traceback (most recent call last):</span><br><span class="line">      File &quot;/Users/topjoy/PycharmProjects/Real-ESRGAN/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py&quot;, line 353, in &lt;module&gt;</span><br><span class="line">         main()</span><br><span class="line">         ~~~~^^</span><br><span class="line">      File &quot;/Users/topjoy/PycharmProjects/Real-ESRGAN/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py&quot;, line 335, in main</span><br><span class="line">         json_out[&#x27;return_val&#x27;] = hook(**hook_input[&#x27;kwargs&#x27;])</span><br><span class="line">                                 ~~~~^^^^^^^^^^^^^^^^^^^^^^^^</span><br><span class="line">      File &quot;/Users/topjoy/PycharmProjects/Real-ESRGAN/venv/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py&quot;, line 118, in get_requires_for_build_wheel</span><br><span class="line">         return hook(config_settings)</span><br><span class="line">      File &quot;/private/var/folders/h7/b_kcqfhn5t7cs_w3p6ks093w0000gn/T/pip-build-env-gfw___4v/overlay/lib/python3.13/site-packages/setuptools/build_meta.py&quot;, line 334, in get_requires_for_build_wheel</span><br><span class="line">         return self._get_build_requires(config_settings, requirements=[])</span><br><span class="line">               ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span><br><span class="line">      File &quot;/private/var/folders/h7/b_kcqfhn5t7cs_w3p6ks093w0000gn/T/pip-build-env-gfw___4v/overlay/lib/python3.13/site-packages/setuptools/build_meta.py&quot;, line 304, in _get_build_requires</span><br><span class="line">         self.run_setup()</span><br><span class="line">         ~~~~~~~~~~~~~~^^</span><br><span class="line">      File &quot;/private/var/folders/h7/b_kcqfhn5t7cs_w3p6ks093w0000gn/T/pip-build-env-gfw___4v/overlay/lib/python3.13/site-packages/setuptools/build_meta.py&quot;, line 522, in run_setup</span><br><span class="line">         super().run_setup(setup_script=setup_script)</span><br><span class="line">         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^</span><br><span class="line">      File &quot;/private/var/folders/h7/b_kcqfhn5t7cs_w3p6ks093w0000gn/T/pip-build-env-gfw___4v/overlay/lib/python3.13/site-packages/setuptools/build_meta.py&quot;, line 320, in run_setup</span><br><span class="line">         exec(code, locals())</span><br><span class="line">         ~~~~^^^^^^^^^^^^^^^^</span><br><span class="line">      File &quot;&lt;string&gt;&quot;, line 149, in &lt;module&gt;</span><br><span class="line">      File &quot;&lt;string&gt;&quot;, line 79, in get_version</span><br><span class="line">      KeyError: &#x27;__version__&#x27;</span><br><span class="line">      [end of output]</span><br><span class="line"></span><br><span class="line">note: This error originates from a subprocess, and is likely not a problem with pip.</span><br><span class="line">error: subprocess-exited-with-error</span><br><span class="line"></span><br><span class="line">× Getting requirements to build wheel did not run successfully.</span><br><span class="line">│ exit code: 1</span><br><span class="line">╰─&gt; See above for output.</span><br><span class="line">note: This error originates from a subprocess, and is likely not a problem with pip.</span><br></pre></td></tr></table></figure></div>
+
+<p>解决办法：</p>
+<ol>
+<li>更新 setuptools 和 pip 版本 <code>pip install --upgrade pip setuptools wheel</code></li>
+<li>安装 torch、opencv <code>pip install torch opencv-python</code><br>此时因为我本地的python 版本是 3.13，torch 不支持 3.13，官方文档的支持是 3.9～3.12，所以更换使用 3.12 版本<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/mdimages/2025-01-06-15-25-33.png"
+                      alt="2025-01-06-15-25-33.png"
+                ><blockquote>
+<p><a class="link"   href="https://pytorch.org/get-started/locally/" >PyTorch<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+</blockquote>
+</li>
+<li>更换版本后，basicsr 安装成功</li>
+</ol>
+</li>
+</ol>
+<h2 id="快速上手"><a href="#快速上手" class="headerlink" title="快速上手"></a>快速上手</h2><p>根据官方文档针对于普通图片和动图有两个提供好的模型使用，分别是 RealESRGAN_x4plus 和 RealESRGAN_x4plus_anime_6B</p>
+<h3 id="普通图片"><a href="#普通图片" class="headerlink" title="普通图片"></a>普通图片</h3><p>使用模型RealESRGAN_x4plus.pth</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">下载模型</span></span><br><span class="line">wget https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth -P weights </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">推断即运行，源文件放在 inputs 目录下</span></span><br><span class="line">python inference_realesrgan.py -n RealESRGAN_x4plus -i inputs --face_enhance</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="动图"><a href="#动图" class="headerlink" title="动图"></a>动图</h3><p>使用模型RealESRGAN_x4plus_anime_6B</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">下载模型</span></span><br><span class="line">wget https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.2.4/RealESRGAN_x4plus_anime_6B.pth -P weights</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">推断即运行，源文件放在 inputs 目录下</span></span><br><span class="line">python inference_realesrgan.py -n RealESRGAN_x4plus_anime_6B -i inputs</span><br></pre></td></tr></table></figure></div>
+
+<p>运行成功后，会在 outputs 目录下生成处理后的图片，可以查看效果。</p>
+<h2 id="输出尺寸的自定义"><a href="#输出尺寸的自定义" class="headerlink" title="输出尺寸的自定义"></a>输出尺寸的自定义</h2><p>RealESRGAN_x4plus.pth模型默认使用 X4即4倍的超分辨率，但是可以通过自定义命令参数<code>outscale</code>来修改输出尺寸。</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">Usage: python inference_realesrgan.py -n RealESRGAN_x4plus -i infile -o outfile [options]...</span><br><span class="line"></span><br><span class="line">A common command: python inference_realesrgan.py -n RealESRGAN_x4plus -i infile --outscale 3.5 --face_enhance</span><br><span class="line"></span><br><span class="line">  -h                   show this help</span><br><span class="line">  -i --input           Input image or folder. Default: inputs</span><br><span class="line">  -o --output          Output folder. Default: results</span><br><span class="line">  -n --model_name      Model name. Default: RealESRGAN_x4plus</span><br><span class="line">  -s, --outscale       The final upsampling scale of the image. Default: 4</span><br><span class="line">  --suffix             Suffix of the restored image. Default: out</span><br><span class="line">  -t, --tile           Tile size, 0 for no tile during testing. Default: 0</span><br><span class="line">  --face_enhance       Whether to use GFPGAN to enhance face. Default: False</span><br><span class="line">  --fp32               Whether to use half precision during inference. Default: False</span><br><span class="line">  --ext                Image extension. Options: auto | jpg | png, auto means using the same extension as inputs. Default: auto</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="懒人版本"><a href="#懒人版本" class="headerlink" title="懒人版本"></a>懒人版本</h2><p>官方提供了可执行文件，支持 Windows  Linux 和 MacOS，直接下载即可使用。<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/mdimages/2025-01-06-15-50-40.png"
+                      alt="2025-01-06-15-50-40.png"
+                ><br>我体验使用了 mac os。</p>
+<h3 id="如果是图片"><a href="#如果是图片" class="headerlink" title="如果是图片"></a>如果是图片</h3><div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">./realesrgan-ncnn-vulkan.exe -i 输入图像.jpg -o 输出图像.png -n 模型名字</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="如果是视频"><a href="#如果是视频" class="headerlink" title="如果是视频"></a>如果是视频</h3><p>其实原理就是把视频拆分成一帧一帧的图片，先处理一张张图片，然后再合成成视频。</p>
+<ol>
+<li><p>Use ffmpeg to extract frames from a video (Remember to create the folder <code>tmp_frames</code> ahead)<br>创建解压目录tmp_frames，ffmpeg 需要手动安装一下 <code>brew install ffmpeg</code></p>
+<p> <code>ffmpeg -i onepiece_demo.mp4 -qscale:v 1 -qmin 1 -qmax 1 -vsync 0 tmp_frames/frame%08d.jpg</code></p>
+</li>
+<li><p>Inference with Real-ESRGAN executable file (Remember to create the folder <code>out_frames</code> ahead)<br>创建处理输出目录out_frames，使用模型realesr-animevideov3，放大倍数2，输出格式jpg（也可以使用提供的其他模型）<br> <code>./realesrgan-ncnn-vulkan -i tmp_frames -o out_frames -n realesr-animevideov3 -s 2 -f jpg</code></p>
+</li>
+<li><p>Merge the enhanced frames back into a video<br>把处理输出的图片再集成成视频<br> <code>ffmpeg -i out_frames/frame%08d.jpg -i onepiece_demo.mp4 -map 0:v:0 -map 1:a:0 -c:a copy -c:v libx264 -r 23.98 -pix_fmt yuv420p output_w_audio.mp4</code></p>
+</li>
+</ol>
+<h2 id="使用效果对比"><a href="#使用效果对比" class="headerlink" title="使用效果对比"></a>使用效果对比</h2><p>这个是我源文件的分辨率的预览<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/mdimages/2025-01-06-15-57-52.png"
+                      alt="2025-01-06-15-57-52.png"
+                ><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/mdimages/2025-01-06-15-58-09.png"
+                      alt="2025-01-06-15-58-09.png"
+                ></p>
+<p>这个是使用模型RealESRGAN_x4plus.pth处理后的结果，分辨率接近 8K(源文件太大了，直接粘进来很卡就截了一张对比图，可能效果不明显，可以自己体验一下，对比真的很明显)<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/mdimages/2025-01-06-15-58-53.png"
+                      alt="2025-01-06-15-58-53.png"
+                ><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/mdimages/2025-01-06-16-01-41.png"
+                      alt="2025-01-06-16-01-41.png"
+                ></p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>图像修复</tag>
+      </tags>
+  </entry>
 </search>
