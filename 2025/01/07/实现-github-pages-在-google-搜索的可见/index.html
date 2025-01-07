@@ -36,8 +36,9 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://jiaheqi.github.io/images/redefine-og.webp">
 <meta property="article:published_time" content="2025-01-07T10:41:55.000Z">
-<meta property="article:modified_time" content="2025-01-07T10:41:55.823Z">
+<meta property="article:modified_time" content="2025-01-07T12:01:42.389Z">
 <meta property="article:author" content="77">
+<meta property="article:tag" content="github pages">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://jiaheqi.github.io/images/redefine-og.webp">
     
@@ -644,7 +645,7 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">5</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">6</div>
         <div class="label text-third-text-color text-sm">标签</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
@@ -703,16 +704,47 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-01-07 18:41:55</span>
-            <span class="mobile">2025-01-07 18:41:55</span>
+            <span class="desktop">2025-01-07 20:01:42</span>
+            <span class="mobile">2025-01-07 20:01:42</span>
             <span class="hover-info">更新</span>
         </span>
     
 
     
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/github-pages/">github pages</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>219 字</span>
+        </span>
     
     
         <span class="article-min2read article-meta-item">
@@ -735,7 +767,64 @@
 
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			
+			<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>为了实现自己的博客页在在谷歌搜索中可见。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="站点提交到-Google"><a href="#站点提交到-Google" class="headerlink" title="站点提交到 Google"></a>站点提交到 Google</h3><p>登录到谷歌控制台 <a class="link"   target="_blank" rel="noopener" href="https://search.google.com/search-console/welcome?hl=zh-CN&utm_source=wmx&utm_medium=deprecation-pane&utm_content=home" >谷歌控制台提交地址<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/mdimages/2025-01-07-18-43-04.png"
+                      alt="2025-01-07-18-43-04.png"
+                ><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/mdimages/2025-01-07-18-44-28.png"
+                      alt="2025-01-07-18-44-28.png"
+                ><br>使用推荐的 html 方式，下载 html 文件后上传的github pages 工程目录下<br>然后点击验证<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/mdimages/2025-01-07-18-48-18.png"
+                      alt="2025-01-07-18-48-18.png"
+                ><br>但是这种方式我一直验证失败，所以更换了网域的形式。</p>
+<p>然后改用了新的网域方式，在阿里云的 dns 解析中添加 txt 类型记录<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/mdimages/2025-01-07-19-00-45.png"
+                      alt="2025-01-07-19-00-45.png"
+                ><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/mdimages/2025-01-07-18-59-36.png"
+                      alt="2025-01-07-18-59-36.png"
+                ><br>验证成功之后需要一天的时间才会生效<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/mdimages/2025-01-07-19-05-14.png"
+                      alt="2025-01-07-19-05-14.png"
+                ></p>
+<h3 id="添加站点地图"><a href="#添加站点地图" class="headerlink" title="添加站点地图"></a>添加站点地图</h3><p>安装插件<code>npm install hexo-generator-sitemap --save</code><br>然后配置<code>_config.yml</code>文件最后添加</p>
+<div class="code-container" data-rel="Yml"><figure class="iseeu highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 自动生成sitemap</span></span><br><span class="line"><span class="attr">sitemap:</span></span><br><span class="line"><span class="attr">path:</span> <span class="string">sitemap.xml</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<p>编译部署之后在 public 目录下会生成<code>sitemap.xml</code>文件<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/mdimages/2025-01-07-19-10-16.png"
+                      alt="2025-01-07-19-10-16.png"
+                ><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/mdimages/2025-01-07-19-12-09.png"
+                      alt="2025-01-07-19-12-09.png"
+                ><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/mdimages/2025-01-07-19-12-45.png"
+                      alt="2025-01-07-19-12-45.png"
+                ><br>刚提交后还无法抓取<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/mdimages/2025-01-07-19-13-45.png"
+                      alt="2025-01-07-19-13-45.png"
+                ><br>一天之后状态应该会更新成功</p>
+
 		</div>
 
 		
@@ -749,7 +838,7 @@
         
             <li>
                 <strong>更新于
-                    :</strong> 2025-01-07 18:41:55
+                    :</strong> 2025-01-07 20:01:42
             </li>
         
         <li>
@@ -771,6 +860,14 @@
 		</div>
 		
 
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/github-pages/">#github pages</a>&nbsp;
+			</li>
+			
+		</ul>
 		
 
 		
@@ -847,7 +944,7 @@
 	<div class="post-toc">
 		<div class="toc-title">目录</div>
 		<div class="page-title">实现 github pages 在 google 搜索的可见</div>
-		
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AB%99%E7%82%B9%E6%8F%90%E4%BA%A4%E5%88%B0-Google"><span class="nav-text">站点提交到 Google</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E7%AB%99%E7%82%B9%E5%9C%B0%E5%9B%BE"><span class="nav-text">添加站点地图</span></a></li></ol></li></ol>
 
 	</div>
 </div>
@@ -880,7 +977,7 @@
                     </span>
                     
                         <span>
-                            共 6.2k 字
+                            共 6.4k 字
                         </span>
                     
                 </p>
