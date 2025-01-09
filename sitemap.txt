@@ -19,9 +19,9 @@ https://jiaheqi.github.io/links/index.html
 https://jiaheqi.github.io/2024/12/31/hello-world/
 https://jiaheqi.github.io/
 https://jiaheqi.github.io/tags/android/
-https://jiaheqi.github.io/tags/c/
 https://jiaheqi.github.io/tags/%E5%9B%BE%E5%83%8F%E4%BF%AE%E5%A4%8D/
-https://jiaheqi.github.io/tags/python/
+https://jiaheqi.github.io/tags/c/
 https://jiaheqi.github.io/tags/unity3D/
+https://jiaheqi.github.io/tags/python/
 https://jiaheqi.github.io/tags/github-pages/
 https://jiaheqi.github.io/categories/%E6%8A%80%E6%9C%AF/
