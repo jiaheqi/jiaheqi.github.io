@@ -122,25 +122,6 @@
     <content><![CDATA[]]></content>
   </entry>
   <entry>
-    <title>c# 中 method new 和 overide 的差异</title>
-    <url>/2025/01/03/c-%E4%B8%AD-method-new-%E5%92%8C-overide-%E7%9A%84%E5%B7%AE%E5%BC%82/</url>
-    <content><![CDATA[<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-01-03-12-55-10.png"
-                      alt="001"
-                ></p>
-<h2 id="new使用"><a href="#new使用" class="headerlink" title="new使用"></a>new使用</h2><div class="code-container" data-rel="Csharp"><figure class="iseeu highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">BaseClass</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ShowMessage</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">&quot;Message from BaseClass&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">DerivedClass</span> : <span class="title">BaseClass</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 使用 new 隐藏基类中的 ShowMessage 方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">new</span> <span class="keyword">void</span> <span class="title">ShowMessage</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">&quot;Message from DerivedClass&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        BaseClass baseObj = <span class="keyword">new</span> BaseClass();</span><br><span class="line">        baseObj.ShowMessage();  <span class="comment">// 输出：Message from BaseClass</span></span><br><span class="line">        </span><br><span class="line">        DerivedClass derivedObj = <span class="keyword">new</span> DerivedClass();</span><br><span class="line">        derivedObj.ShowMessage();  <span class="comment">// 输出：Message from DerivedClass</span></span><br><span class="line">        </span><br><span class="line">        BaseClass baseRef = <span class="keyword">new</span> DerivedClass();</span><br><span class="line">        baseRef.ShowMessage();  <span class="comment">// 输出：Message from BaseClass（基类方法被调用，因为它使用基类引用）</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
-
-<h2 id="overide使用"><a href="#overide使用" class="headerlink" title="overide使用"></a>overide使用</h2><div class="code-container" data-rel="Csharp"><figure class="iseeu highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">BaseClass</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">ShowMessage</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">&quot;Message from BaseClass&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">DerivedClass</span> : <span class="title">BaseClass</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 使用 override 重写基类的 ShowMessage 方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">ShowMessage</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">&quot;Message from DerivedClass&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        BaseClass baseObj = <span class="keyword">new</span> BaseClass();</span><br><span class="line">        baseObj.ShowMessage();  <span class="comment">// 输出：Message from BaseClass</span></span><br><span class="line">        </span><br><span class="line">        DerivedClass derivedObj = <span class="keyword">new</span> DerivedClass();</span><br><span class="line">        derivedObj.ShowMessage();  <span class="comment">// 输出：Message from DerivedClass</span></span><br><span class="line">        </span><br><span class="line">        BaseClass baseRef = <span class="keyword">new</span> DerivedClass();</span><br><span class="line">        baseRef.ShowMessage();  <span class="comment">// 输出：Message from DerivedClass（调用派生类的方法）</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>c#</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Real-ESRGAN 图像和视频AI修复工具使用</title>
     <url>/2025/01/06/Real-ESRGAN-%E5%9B%BE%E5%83%8F%E5%92%8C%E8%A7%86%E9%A2%91AI%E4%BF%AE%E5%A4%8D%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在我们的日常中，对于一些年代比较久远的图片 or 视频，我们希望可以进行一些修复，但是现在很多软件都比较耗费性能，或者需要付费，我们希望有一个比较轻量级的软件，可以进行一些修复，并且可以免费使用。<br>然后在 github 偶然发现了这个工具，记录一下使用的过程和遇到的问题。</p>
@@ -225,34 +206,23 @@
       </tags>
   </entry>
   <entry>
-    <title>github pages 实现百度收录</title>
-    <url>/2025/01/08/github-pages-%E5%AE%9E%E7%8E%B0%E7%99%BE%E5%BA%A6%E6%94%B6%E5%BD%95/</url>
-    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>为了实现自己的 github pages 博客页在在百度搜索中可见。</p>
-<h2 id="链接提交"><a href="#链接提交" class="headerlink" title="链接提交"></a>链接提交</h2><p>测试<br><img  
+    <title>c# 中 method new 和 overide 的差异</title>
+    <url>/2025/01/03/c-%E4%B8%AD-method-new-%E5%92%8C-overide-%E7%9A%84%E5%B7%AE%E5%BC%82/</url>
+    <content><![CDATA[<p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-01-08-11-11-19.png"
-                      alt="2025-01-08-11-11-19.png"
+                     data-src="/images/mdimages/2025-01-03-12-55-10.png"
+                      alt="001"
                 ></p>
-<p><a class="link"   href="https://ziyuan.baidu.com/linksubmit/url?sitename=http://site:jiaheqi.cloud" >百度链接提交🔗<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-01-08-11-09-51.png"
-                      alt="2025-01-08-11-09-51.png"
-                ></p>
-<p>提交成功后，需要等待 24 小时左右，才能在百度搜索中看到。</p>
-<h2 id="资源提交"><a href="#资源提交" class="headerlink" title="资源提交"></a>资源提交</h2><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-01-10-10-52-04.png"
-                      alt="2025-01-10-10-52-04.png"
-                ></p>
-<p>可以选择官方提供的三种方式，因为 sitemap 我没有限额，所以使用的是 API 提交方式，提交成功后返回 success</p>
-<blockquote>
-<p>需要注意的是每天只能提交一次，次二次会返回超限额：<code>&#123;&quot;error&quot;:400,&quot;message&quot;:&quot;over quota&quot;&#125;</code></p>
-</blockquote>
-<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>提交成功后，在 1 天后能够通过 site 测试发现，在百度收录中可以看到</p>
-]]></content>
+<h2 id="new使用"><a href="#new使用" class="headerlink" title="new使用"></a>new使用</h2><div class="code-container" data-rel="Csharp"><figure class="iseeu highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">BaseClass</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ShowMessage</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">&quot;Message from BaseClass&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">DerivedClass</span> : <span class="title">BaseClass</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 使用 new 隐藏基类中的 ShowMessage 方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">new</span> <span class="keyword">void</span> <span class="title">ShowMessage</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">&quot;Message from DerivedClass&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        BaseClass baseObj = <span class="keyword">new</span> BaseClass();</span><br><span class="line">        baseObj.ShowMessage();  <span class="comment">// 输出：Message from BaseClass</span></span><br><span class="line">        </span><br><span class="line">        DerivedClass derivedObj = <span class="keyword">new</span> DerivedClass();</span><br><span class="line">        derivedObj.ShowMessage();  <span class="comment">// 输出：Message from DerivedClass</span></span><br><span class="line">        </span><br><span class="line">        BaseClass baseRef = <span class="keyword">new</span> DerivedClass();</span><br><span class="line">        baseRef.ShowMessage();  <span class="comment">// 输出：Message from BaseClass（基类方法被调用，因为它使用基类引用）</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="overide使用"><a href="#overide使用" class="headerlink" title="overide使用"></a>overide使用</h2><div class="code-container" data-rel="Csharp"><figure class="iseeu highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">BaseClass</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">ShowMessage</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">&quot;Message from BaseClass&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">DerivedClass</span> : <span class="title">BaseClass</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 使用 override 重写基类的 ShowMessage 方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">ShowMessage</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">&quot;Message from DerivedClass&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        BaseClass baseObj = <span class="keyword">new</span> BaseClass();</span><br><span class="line">        baseObj.ShowMessage();  <span class="comment">// 输出：Message from BaseClass</span></span><br><span class="line">        </span><br><span class="line">        DerivedClass derivedObj = <span class="keyword">new</span> DerivedClass();</span><br><span class="line">        derivedObj.ShowMessage();  <span class="comment">// 输出：Message from DerivedClass</span></span><br><span class="line">        </span><br><span class="line">        BaseClass baseRef = <span class="keyword">new</span> DerivedClass();</span><br><span class="line">        baseRef.ShowMessage();  <span class="comment">// 输出：Message from DerivedClass（调用派生类的方法）</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>c#</tag>
+      </tags>
   </entry>
   <entry>
     <title>Hello World</title>
@@ -302,18 +272,12 @@
                      data-src="/images/mdimages/2025-01-07-18-00-58.png"
                       alt="2025-01-07-18-00-58.png"
                 ></li>
-<li>使用空工程先后导入两个 package，不存在文件 new 差异<br>遇到的问题是即使导入完全一样的 package 两次，<code>.png, .strings, .h, .plist, .nib</code> 这些文件会被再次标记为 new，即使是使用 unity 的 aeests export package 导出的包也是如此，所以可以认为脚本导出的包该行为不存在问题<br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-01-07-18-04-56.png"
-                      alt="2025-01-07-18-04-56.png"
-                ></li>
+<li>使用空工程先后导入两个 package，不存在文件 new 差异<br>遇到的问题是即使导入完全一样的 package 两次，.png, .strings, .h, .plist, .nib 这些文件会被再次标记为 new，即使是使用 unity 的 aeests export package 导出的包也是如此，所以可以认为脚本导出的包该行为不存在问题</li>
 <li>import 导入脚本导出的项目后测试功能正常</li>
 </ol>
 <h2 id="其他tips"><a href="#其他tips" class="headerlink" title="其他tips"></a>其他tips</h2><p>本来想通过解压 unitypackage 然后结合 beyond compare 来比较两个包，但是发现解压之后包中的文件过多，以及一些<code>.meta</code>文件导致的差异无法忽略，所以最有效的方式还是分别 import 的形式进行比较。</p>
 <p>unitypackage 解压命令</p>
-<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">tar -xvf abc.unitypackage -C temp</span><br></pre></td></tr></table></figure></div>
-]]></content>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">tar -xvf abc.unitypackage -C temp</span><br></pre></td></tr></table></figure></div>]]></content>
       <categories>
         <category>技术</category>
       </categories>
@@ -354,184 +318,6 @@
       </categories>
       <tags>
         <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>github pages 实现 Google 收录</title>
-    <url>/2025/01/07/github-pages-%E5%AE%9E%E7%8E%B0%20Google%20%E6%94%B6%E5%BD%95/</url>
-    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>为了实现自己的 github pages 博客页在在谷歌搜索中可见。</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="站点提交到-Google"><a href="#站点提交到-Google" class="headerlink" title="站点提交到 Google"></a>站点提交到 Google</h3><p>登录到谷歌控制台 <a class="link"   href="https://search.google.com/search-console/welcome?hl=zh-CN&utm_source=wmx&utm_medium=deprecation-pane&utm_content=home" >谷歌控制台提交地址<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-01-07-18-43-04.png"
-                      alt="2025-01-07-18-43-04.png"
-                ><br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-01-07-18-44-28.png"
-                      alt="2025-01-07-18-44-28.png"
-                ><br>使用推荐的 html 方式，下载 html 文件后上传的github pages 工程目录下<br>然后点击验证<br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-01-07-18-48-18.png"
-                      alt="2025-01-07-18-48-18.png"
-                ><br>但是这种方式我一直验证失败，所以更换了网域的形式。</p>
-<p>后续找到了链接验证无法成功原因，是因为我把下载下来的 html 文件放在了 source 目录下，然后 hexo 编译后在 public 目录下生成的文件，会被 hexo 渲染，原本的内容只有<code>google-site-verification: googlef1ecefe81f454c0d.html</code>,被 hexo 渲染后会多很多标签和内容，所以要保证 html 不被hexo 渲染。<br>如何实现某些文件不被 hexo 渲染呢？参考：<br><a href="https://www.jiaheqi.cloud/2025/01/09/github-pages-%E5%AE%9E%E7%8E%B0%E6%9F%90%E4%BA%9B%E6%96%87%E4%BB%B6%E4%B8%8D%E8%A2%AB-hexo-%E6%B8%B2%E6%9F%93/">github pages 实现某些文件不被 hexo 渲染</a></p>
-<p>然后改用了新的网域方式，在阿里云的 dns 解析中添加 txt 类型记录<br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-01-07-19-00-45.png"
-                      alt="2025-01-07-19-00-45.png"
-                ><br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-01-07-18-59-36.png"
-                      alt="2025-01-07-18-59-36.png"
-                ><br>验证成功之后需要一天的时间才会生效<br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-01-07-19-05-14.png"
-                      alt="2025-01-07-19-05-14.png"
-                ></p>
-<h3 id="添加站点地图"><a href="#添加站点地图" class="headerlink" title="添加站点地图"></a>添加站点地图</h3><p>安装插件<code>npm install hexo-generator-sitemap --save</code><br>然后配置<code>_config.yml</code>文件最后添加</p>
-<div class="code-container" data-rel="Yml"><figure class="iseeu highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 自动生成sitemap</span></span><br><span class="line"><span class="attr">sitemap:</span></span><br><span class="line"><span class="attr">path:</span> <span class="string">sitemap.xml</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
-
-<p>编译部署之后在 public 目录下会生成<code>sitemap.xml</code>文件<br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-01-07-19-10-16.png"
-                      alt="2025-01-07-19-10-16.png"
-                ><br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-01-07-19-12-09.png"
-                      alt="2025-01-07-19-12-09.png"
-                ><br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-01-07-19-12-45.png"
-                      alt="2025-01-07-19-12-45.png"
-                ><br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-01-09-11-44-15.png"
-                      alt="2025-01-09-11-44-15.png"
-                ><br>sitmap.xml 文件内容如下<br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-01-09-11-44-46.png"
-                      alt="2025-01-09-11-44-46.png"
-                ><br>添加后状态更新成功</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-01-10-10-47-18.png"
-                      alt="2025-01-10-10-47-18.png"
-                ></p>
-<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>配置成功后，在 1 天之后可以用 <code>site://https://www.jiaheqi.cloud/</code> 搜索测试可见性</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-01-10-10-50-06.png"
-                      alt="2025-01-10-10-50-06.png"
-                ></p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>github pages</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>github pages 实现某些文件不被 hexo 渲染</title>
-    <url>/2025/01/09/github-pages-%E5%AE%9E%E7%8E%B0%E6%9F%90%E4%BA%9B%E6%96%87%E4%BB%B6%E4%B8%8D%E8%A2%AB-hexo-%E6%B8%B2%E6%9F%93/</url>
-    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>使用 hexo 搭建的博客内容，在实现 Google 和百度的收录的时候，按照官网流程添加 html 文件到 hexo 根目录后，验证不生效。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-01-10-10-35-00.png"
-                      alt="2025-01-10-10-35-00.png"
-                ></p>
-<p>验证失败</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-01-10-10-36-06.png"
-                      alt="2025-01-10-10-36-06.png"
-                ></p>
-<p>原因分析</p>
-<p>是因为 hexo 默认渲染所有文件，包括 html 文件，所以 hexo 渲染了 html 文件，导致在Google 和百度下载的 html 源文件会被追加很多 hexo 渲染的内容，导致验证失败。<br>所以我们需要做的就是配置某些文件不被 hexo 渲染。</p>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>hexo 文档中提供了配置方式，在 _config.yml 文件中添加如下配置：</p>
-<blockquote>
-<p>hexo 官方文档 <a class="link"   href="https://hexo.io/zh-cn/docs/configuration" >https://hexo.io/zh-cn/docs/configuration<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-</blockquote>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-01-10-10-39-31.png"
-                      alt="2025-01-10-10-39-31.png"
-                ></p>
-<p>因为我只想跳过单独两个文件的渲染，所以只需要显示声明这两个文件就可以</p>
-<div class="code-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">skip_render:</span> [<span class="string">googlef1ecefe81f454c0d.html</span>,<span class="string">baidu_verify_codeva-1hDKhq4G8B.html</span>]</span><br></pre></td></tr></table></figure></div>
-
-<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>运行 hexo server 后，可以看到这两个文件不会被渲染，而是直接被复制成静态文件到 public 目录下，然后再 google 和百度的验证通过。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-01-10-10-41-39.png"
-                      alt="2025-01-10-10-41-39.png"
-                ></p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>github pages 部署vercel</title>
-    <url>/2025/01/08/github-pages-%E9%83%A8%E7%BD%B2vercel/</url>
-    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>由于GitHub禁止百度爬虫访问，造成托管在GitHub Pages上的博客无法被百度收录。</p>
-<p>为了解决这个问题，可以通过两种方式实现：</p>
-<ol>
-<li>同时将博客同时同步托管到GitHub Pages（国外访问较快）和国内访问较快的站点，如coding pages 或者 gitee 上</li>
-<li>部署 GitHub Pages 到 Vercel 上</li>
-</ol>
-<p>因为vercel在境内设有服务器，在境内访问速度比Githhub快，同时还有100G的加速服务，会自动申请免费的Let’s Encrypt 证书，自动同步Github仓库部署，不需要同时部署两次，所以选择的第二种方式</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><ol>
-<li>登录 Vercel 官网，使用 github 方式登录 <a class="link"   href="https://vercel.com/" >Vercel 官网<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
-<li>新建 project，直接选择 import 自己的 github pages 的 Repository，就是那个<code>xxx.github.io</code>的仓库</li>
-<li>然后 deploy 就可以</li>
-<li>添加自己的域名，在 Vercel 上面添加自己的域名，然后配置好解析，然后就可以访问了，在Setting -&gt; Domains中<br>根据提示，在自己的域名解析平台，我是用的 aliyun，添加需要条件的 DNS 解析记录就可以，添加的时候会自动检测，添加成功后如图<blockquote>
-<p>需要注意的是之前域名关联 github 部署的时候添加的解析记录会提示删除，可以暂时暂停就可以<br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-01-10-11-15-03.png"
-                      alt="2025-01-10-11-15-03.png"
-                ><br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-01-10-11-06-05.png"
-                      alt="2025-01-10-11-06-05.png"
-                ></p>
-</blockquote>
-</li>
-</ol>
-<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>最终Vercel 部署成功后，每次 hexo 部署之后，github 自动更新，同时 Vercel 会触发更新和部署</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-01-10-11-16-30.png"
-                      alt="2025-01-10-11-16-30.png"
-                ></p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>vercel</tag>
       </tags>
   </entry>
 </search>
