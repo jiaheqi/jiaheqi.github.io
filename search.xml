@@ -1,6 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Android apk 签名</title>
+    <url>/2025/01/02/Android-apk%E7%AD%BE%E5%90%8D/</url>
+    <content><![CDATA[<h2 id="查看apk签名"><a href="#查看apk签名" class="headerlink" title="查看apk签名"></a>查看apk签名</h2><blockquote>
+<p>参考文档：<a class="link"   href="https://developers.google.com/android/guides/client-auth?hl=zh-cn" >https://developers.google.com/android/guides/client-auth?hl=zh-cn<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+</blockquote>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 方式一</span></span><br><span class="line">keytool -printcert -jarfile /Users/topjoy/Desktop/zeusbuild.apk</span><br><span class="line"><span class="comment"># 方式二</span></span><br><span class="line">jarsigner -verify -verbose -certs app-release.apk </span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/mdimages/2025-01-02-18-29-27.png"
+                      alt="001"
+                ></p>
+<p>firebase后台：<a class="link"   href="https://console.firebase.google.com/u/1/project/dao-project-380602/settings/general/android:com.topjoy.sdk_demo?hl=zh-cn" >https://console.firebase.google.com/u/1/project/dao-project-380602/settings/general/android:com.topjoy.sdk_demo?hl=zh-cn<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/mdimages/2025-01-02-18-30-20.png"
+                      alt="002"
+                ></p>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ol>
+<li><p>同一个包名，使用不同的签名keystore，最终打出的包签名是不一致的</p>
+</li>
+<li><p>如果打出的包签名SHA-1 SHA-256在firebase后台未配置，那么谷歌相关能力则无法使用，比如谷歌登录会失败，返回错误码10<br>  解决2的问题，可以使用同一个包名，或者把打出的包签名添加到firabse后台</p>
+</li>
+<li><p>android studio配置签名keystore<br> 在gradle文件添加配置</p>
+ <div class="code-container" data-rel="Gradle"><figure class="iseeu highlight gradle"><table><tr><td class="code"><pre><span class="line">    signingConfigs &#123;</span><br><span class="line">    config &#123;<span class="comment">//谷歌支付使用的jks</span></span><br><span class="line">        storeFile <span class="keyword">file</span>(<span class="string">&#x27;mujianchen.jsk&#x27;</span>)</span><br><span class="line">        keyAlias <span class="string">&#x27;mujianchen&#x27;</span></span><br><span class="line">        keyPassword <span class="string">&#x27;mu123456&#x27;</span></span><br><span class="line">        storePassword <span class="string">&#x27;mu123456&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ylconfig &#123;<span class="comment">//可以用来测试的签名</span></span><br><span class="line">        storeFile <span class="keyword">file</span>(<span class="string">&#x27;youle.jks&#x27;</span>)</span><br><span class="line">        keyAlias <span class="string">&#x27;youle&#x27;</span></span><br><span class="line">        keyPassword <span class="string">&#x27;yl123456&#x27;</span></span><br><span class="line">        storePassword <span class="string">&#x27;yl123456&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>unity配置签名：在player-settings中<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/mdimages/2025-01-02-18-30-40.png"
+                      alt="003"
+                ></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>android</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Android apk反编译与篡改</title>
     <url>/2025/01/03/Android-apk%E5%8F%8D%E7%BC%96%E8%AF%91%E4%B8%8E%E7%AF%A1%E6%94%B9/</url>
     <content><![CDATA[<h2 id="jadx-gui反编译"><a href="#jadx-gui反编译" class="headerlink" title="jadx gui反编译"></a>jadx gui反编译</h2><h3 id="安装与启动"><a href="#安装与启动" class="headerlink" title="安装与启动"></a>安装与启动</h3><blockquote>
@@ -63,51 +108,6 @@
                      data-src="/images/mdimages/2025-01-03-18-28-49.png"
                       alt="2025-01-03-18-28-49.png"
                 ><br>3. 签名后的 APK 安装后可以正常运行</p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>android</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Android apk 签名</title>
-    <url>/2025/01/02/Android-apk%E7%AD%BE%E5%90%8D/</url>
-    <content><![CDATA[<h2 id="查看apk签名"><a href="#查看apk签名" class="headerlink" title="查看apk签名"></a>查看apk签名</h2><blockquote>
-<p>参考文档：<a class="link"   href="https://developers.google.com/android/guides/client-auth?hl=zh-cn" >https://developers.google.com/android/guides/client-auth?hl=zh-cn<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-</blockquote>
-<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 方式一</span></span><br><span class="line">keytool -printcert -jarfile /Users/topjoy/Desktop/zeusbuild.apk</span><br><span class="line"><span class="comment"># 方式二</span></span><br><span class="line">jarsigner -verify -verbose -certs app-release.apk </span><br></pre></td></tr></table></figure></div>
-
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-01-02-18-29-27.png"
-                      alt="001"
-                ></p>
-<p>firebase后台：<a class="link"   href="https://console.firebase.google.com/u/1/project/dao-project-380602/settings/general/android:com.topjoy.sdk_demo?hl=zh-cn" >https://console.firebase.google.com/u/1/project/dao-project-380602/settings/general/android:com.topjoy.sdk_demo?hl=zh-cn<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-01-02-18-30-20.png"
-                      alt="002"
-                ></p>
-<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ol>
-<li><p>同一个包名，使用不同的签名keystore，最终打出的包签名是不一致的</p>
-</li>
-<li><p>如果打出的包签名SHA-1 SHA-256在firebase后台未配置，那么谷歌相关能力则无法使用，比如谷歌登录会失败，返回错误码10<br>  解决2的问题，可以使用同一个包名，或者把打出的包签名添加到firabse后台</p>
-</li>
-<li><p>android studio配置签名keystore<br> 在gradle文件添加配置</p>
- <div class="code-container" data-rel="Gradle"><figure class="iseeu highlight gradle"><table><tr><td class="code"><pre><span class="line">    signingConfigs &#123;</span><br><span class="line">    config &#123;<span class="comment">//谷歌支付使用的jks</span></span><br><span class="line">        storeFile <span class="keyword">file</span>(<span class="string">&#x27;mujianchen.jsk&#x27;</span>)</span><br><span class="line">        keyAlias <span class="string">&#x27;mujianchen&#x27;</span></span><br><span class="line">        keyPassword <span class="string">&#x27;mu123456&#x27;</span></span><br><span class="line">        storePassword <span class="string">&#x27;mu123456&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ylconfig &#123;<span class="comment">//可以用来测试的签名</span></span><br><span class="line">        storeFile <span class="keyword">file</span>(<span class="string">&#x27;youle.jks&#x27;</span>)</span><br><span class="line">        keyAlias <span class="string">&#x27;youle&#x27;</span></span><br><span class="line">        keyPassword <span class="string">&#x27;yl123456&#x27;</span></span><br><span class="line">        storePassword <span class="string">&#x27;yl123456&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p>unity配置签名：在player-settings中<br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-01-02-18-30-40.png"
-                      alt="003"
-                ></p>
-</li>
-</ol>
 ]]></content>
       <categories>
         <category>技术</category>
@@ -318,6 +318,86 @@
       </categories>
       <tags>
         <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>常用命令合集</title>
+    <url>/2025/01/21/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86/</url>
+    <content><![CDATA[<h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><h3 id="pip"><a href="#pip" class="headerlink" title="pip"></a>pip</h3><h4 id="升级-pip-版本"><a href="#升级-pip-版本" class="headerlink" title="升级 pip 版本"></a>升级 pip 版本</h4><div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">pip install --upgrade pip</span><br><span class="line">python -m pip install --upgrade pip</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="显示已安装packages"><a href="#显示已安装packages" class="headerlink" title="显示已安装packages"></a>显示已安装packages</h4><div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">pip list</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="venv"><a href="#venv" class="headerlink" title="venv"></a>venv</h3><h4 id="创建虚拟环境"><a href="#创建虚拟环境" class="headerlink" title="创建虚拟环境"></a>创建虚拟环境</h4><div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">python -m venv myenv</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="激活虚拟环境"><a href="#激活虚拟环境" class="headerlink" title="激活虚拟环境"></a>激活虚拟环境</h4><div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">source myenv/bin/activate</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="退出虚拟环境"><a href="#退出虚拟环境" class="headerlink" title="退出虚拟环境"></a>退出虚拟环境</h4><div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">deactivate</span><br></pre></td></tr></table></figure></div>
+]]></content>
+  </entry>
+  <entry>
+    <title>python设置镜像源临时和永久两种方式</title>
+    <url>/2025/01/21/python%E8%AE%BE%E7%BD%AE%E9%95%9C%E5%83%8F%E6%BA%90%E4%B8%B4%E6%97%B6%E5%92%8C%E6%B0%B8%E4%B9%85%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F/</url>
+    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在安装某些python packages的时候因为国内的网络问题可能导致安装失败，所以需要切换到国内的镜像源。</p>
+<h2 id="临时"><a href="#临时" class="headerlink" title="临时"></a>临时</h2><p>trusted-host是添加域名信任，-i 后面跟镜像源</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">pip install requests -I --trusted-host pypi.tuna.tsinghua.edu.cn -i https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="永久"><a href="#永久" class="headerlink" title="永久"></a>永久</h2><p>trusted-host是添加域名信任</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple</span><br><span class="line"></span><br><span class="line">pip config set global.trusted-host &quot;pypi.tuna.tsinghua.edu.cn&quot;   </span><br></pre></td></tr></table></figure></div>
+
+<h2 id="常见的镜像网站如下"><a href="#常见的镜像网站如下" class="headerlink" title="常见的镜像网站如下"></a>常见的镜像网站如下</h2><p>中国科技大学 <a class="link"   href="https://pypi.mirrors.ustc.edu.cn/simple" >https://pypi.mirrors.ustc.edu.cn/simple<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>清华：<a class="link"   href="https://pypi.tuna.tsinghua.edu.cn/simple" >https://pypi.tuna.tsinghua.edu.cn/simple<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>阿里云：<a class="link"   href="http://mirrors.aliyun.com/pypi/simple" >http://mirrors.aliyun.com/pypi/simple<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>华中理工大学：<a class="link"   href="http://pypi.hustunique.com/" >http://pypi.hustunique.com/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>山东理工大学：<a class="link"   href="http://pypi.sdutlinux.org/" >http://pypi.sdutlinux.org/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>豆瓣：<a class="link"   href="http://pypi.douban.com/simple" >http://pypi.douban.com/simple<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android设备获取OAID调研和实现</title>
+    <url>/2025/01/13/Android%E8%AE%BE%E5%A4%87%E8%8E%B7%E5%8F%96OAID%E8%B0%83%E7%A0%94%E5%92%8C%E5%AE%9E%E7%8E%B0/</url>
+    <content><![CDATA[<h2 id="什么是OAID、AAID、VAID"><a href="#什么是OAID、AAID、VAID" class="headerlink" title="什么是OAID、AAID、VAID"></a>什么是OAID、AAID、VAID</h2><h3 id="OAID"><a href="#OAID" class="headerlink" title="OAID"></a>OAID</h3><p>OAID是”Android ID”（安卓ID）的一种替代方案，其全称为”Open Anonymous Identifier”（开放匿名标识符）。<br>因传统的移动终端设备标识如国际移动设备识别码（IMEI）等已被部分国家认定为用户隐私的一部分，并存在被篡改和冒用的风险，所以在Android 10及后续版本中非厂商系统应用将无法获取IMEI、MAC等设备信息。无法获取IMEI会在用户行为统计过程中对设备识别产生一定影响。<br>移动安全联盟针对该问题联合国内手机厂商推出补充设备标准体系方案，选择OAID字段作为IMEI等的替代字段。OAID字段是由中国信通院联合华为、小米、OPPO、VIVO等厂商共同推出的设备识别字段，具有一定的权威性，可满足用户行为统计的使用场景。</p>
+<h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><p>设备唯一标识符（UDID）：设备唯一硬件标识，设备生产时根据特定的硬件 信息生成，可用于设备的生产环境及合法性校验。不对第三方应用提供获取接 口，无法通过 SDK 获取。<br> 匿名设备标识符（OAID）：可以连接所有应用数据的标识符，移动智能终端 系统首次启动后立即生成，可用于广告业务。可以通过 SDK 获取到接口状态（重 置、关闭）、ID 值。<br> 开发者匿名设备标识符（VAID）：用于开放给开发者的设备标识符，可在应用安装时产生，可用于同一开发者不同应用之间的推荐。可以通过 SDK 获取到 ID 值。<br>应用匿名设备标识符（AAID）：第三方应用获取的匿名设备标识，可在应用安装时产生，可用于用户统计等。可以通过 SDK 获取到 ID值。  </p>
+<h2 id="如何获取"><a href="#如何获取" class="headerlink" title="如何获取"></a>如何获取</h2><h3 id="官方SDK接入"><a href="#官方SDK接入" class="headerlink" title="官方SDK接入"></a>官方SDK接入</h3><h4 id="SDK获取"><a href="#SDK获取" class="headerlink" title="SDK获取"></a>SDK获取</h4><p>移动安全联盟官网：<a class="link"   href="http://www.msa-alliance.cn/" >http://www.msa-alliance.cn/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>注意：但是注册需要企业账号，个人开发者无法注册使用，所以测试的时候在网上找了其他人提供的已经下载好的官方SDK。<br>百度云盘地址：<a class="link"   href="https://pan.baidu.com/s/1sVzBD_3mTXD_oqyu5I2VtQ" >https://pan.baidu.com/s/1sVzBD_3mTXD_oqyu5I2VtQ<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>  提取码：we54<br>官方文档：<br>见附件。</p>
+<h4 id="配置和调用"><a href="#配置和调用" class="headerlink" title="配置和调用"></a>配置和调用</h4><ol>
+<li><p>把 oaid_sdk_x.x.x.aar 拷贝到项的 libs 目录，并设置依赖，其中 x.x.x 代表版本号</p>
+</li>
+<li><p>将 supplierconfig.json 拷贝到项目 assets 目录下<br>appid 需要移动互联网应用开发者根据应用使用需求到不同终端厂商的应用 商城申请，具体需咨询相关厂商，不需要填写其他第三方应用商店的 appid。 appid 只与 VAID 的获取有关，用于判断是否为同一开发者，如不需获取 vaid 可 不填写。目前只需设置 vivo 的 appid。（我们本次只需要获取OAID，所以不需要上架，也不需要appid）<br>配置文件中部分设备如果不配置厂商会无法获取，部分设备如小米即使配置文件中没有，也不影响获取，所以我们对接的时候，为了保险起见，配置文件中尽可能全一些。【 官方文档中说配置文件不用修改，只需填写对应 appid，并放到 assets 目录下即可  】</p>
+</li>
+<li><p>设置依赖</p>
+</li>
+<li><p>设置gradle编译选项，开发者可以根据自己对平台的选择进行合理配置（测试的时候不配置也没什么问题）<br> ndk { abiFilters ‘armeabi-v7a’,’x86’,’arm64-v8a’,’x86_64’,’armeabi’ }</p>
+</li>
+</ol>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title class_">IIdentifierListener</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> TextView tvContent;</span><br><span class="line">    String oaid;</span><br><span class="line">    String vaid;</span><br><span class="line">    String aaid;</span><br><span class="line">    <span class="meta">@SuppressLint(&quot;MissingInflatedId&quot;)</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">(Bundle savedInstanceState)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        tvContent = findViewById(R.id.tv);</span><br><span class="line">        MdidSdkHelper.InitSdk(getApplicationContext(), <span class="literal">true</span>, <span class="built_in">this</span>);</span><br><span class="line">        <span class="comment">//结果是异步返回的,使用时为空的话可以先休眠几秒</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;OAID: &quot;</span>+oaid);</span><br><span class="line">        System.out.println(<span class="string">&quot;VAID: &quot;</span>+vaid);</span><br><span class="line">        System.out.println(<span class="string">&quot;AAID: &quot;</span>+aaid);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">OnSupport</span><span class="params">(<span class="type">boolean</span> b, IdSupplier idSupplier)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(idSupplier==<span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        oaid=idSupplier.getOAID();</span><br><span class="line">        vaid=idSupplier.getVAID();</span><br><span class="line">        aaid=idSupplier.getAAID();</span><br><span class="line"></span><br><span class="line">        StringBuilder builder=<span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        builder.append(<span class="string">&quot;support: &quot;</span>).append(idSupplier.isSupported()?<span class="string">&quot;true&quot;</span>:<span class="string">&quot;false&quot;</span>).append(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        builder.append(<span class="string">&quot;OAID: &quot;</span>).append(oaid).append(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        builder.append(<span class="string">&quot;VAID: &quot;</span>).append(vaid).append(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        builder.append(<span class="string">&quot;AAID: &quot;</span>).append(aaid).append(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">        String idstext=builder.toString();</span><br><span class="line">        Log.d(<span class="string">&quot;SdkDemo: &quot;</span>, idstext);</span><br><span class="line">        onIdsAvalid(idstext);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onIdsAvalid</span><span class="params">(<span class="meta">@NonNull</span> <span class="keyword">final</span> String ids)</span> &#123;</span><br><span class="line">        runOnUiThread(<span class="keyword">new</span> <span class="title class_">Runnable</span>() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">                tvContent.setText(ids);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i-blog.csdnimg.cn/blog_migrate/06645bb792f3ec187fe7c025961d3536.png"
+                      alt="官方sdk获取结果"
+                ></p>
+<h3 id="三方实现接入"><a href="#三方实现接入" class="headerlink" title="三方实现接入"></a>三方实现接入</h3><h4 id="接入指引"><a href="#接入指引" class="headerlink" title="接入指引"></a>接入指引</h4><p>github地址：<a class="link"   href="https://github.com/gzu-liyujiang/Android_CN_OAID" >https://github.com/gzu-liyujiang/Android_CN_OAID<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>文档已经写的特别详细了，但是还是有一些地方需要注意一下：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">implementation(<span class="string">&#x27;com.github.gzu-liyujiang:Android_CN_OAID:最新版本号&#x27;</span>) &#123;</span><br><span class="line"><span class="comment">// 如果使用了移动安全联盟SDK，共存的话需排除掉本项目依赖的华为/荣耀官方广告标识服务SDK，因为移动安全联盟SDK也依赖了华为/荣耀的SDK</span></span><br><span class="line"><span class="comment">// 如果华为官方广告标识服务SDK下载失败或编译报错的话，可考虑在 build.gradle 中增加以下配置：</span></span><br><span class="line"><span class="comment">// repositories &#123; maven &#123; url &#x27;https://developer.huawei.com/repo&#x27; &#125; &#125;</span></span><br><span class="line"><span class="comment">// runtimeOnly &quot;com.huawei.hms:ads-identifier:3.4.62.300&quot;</span></span><br><span class="line">exclude group: <span class="string">&#x27;com.huawei.hms&#x27;</span>, <span class="keyword">module</span>: <span class="string">&#x27;ads-identifier&#x27;</span> </span><br><span class="line"><span class="comment">// 荣耀官方广告标识服务SDK同理：      </span></span><br><span class="line"><span class="comment">// repositories &#123; maven &#123; url &#x27;https://developer.hihonor.com/repo&#x27; &#125; &#125;</span></span><br><span class="line"><span class="comment">// runtimeOnly &quot;com.hihonor.mcs:ads-identifier:1.0.2.301&quot;</span></span><br><span class="line">exclude group: <span class="string">&#x27;com.hihonor.mcs&#x27;</span>, <span class="keyword">module</span>: <span class="string">&#x27;ads-identifier&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>在这里，如果在kotlin的dsl中应该这么写exclude group：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">implementation (<span class="string">&quot;com.github.gzu-liyujiang:Android_CN_OAID:4.2.9&quot;</span>)&#123;</span><br><span class="line">exclude(group = <span class="string">&quot;com.huawei.hms&#x27;, module: &#x27;ads-identifier&quot;</span>)</span><br><span class="line">exclude(group = <span class="string">&quot;&#x27;com.hihonor.mcs&#x27;, module: &#x27;ads-identifier&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">publicclassMainActivityextendsAppCompatActivity&#123;</span><br><span class="line">privateTextViewtextViewOAID;</span><br><span class="line"><span class="meta">@SuppressLint(&quot;MissingInflatedId&quot;)</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line">protectedvoidonCreate(BundlesavedInstanceState)&#123;</span><br><span class="line"><span class="built_in">super</span>.onCreate(savedInstanceState);</span><br><span class="line">setContentView(R.layout.activity_main);</span><br><span class="line">textViewOAID=findViewById(R.id.textViewOAID);</span><br><span class="line"><span class="comment">//DeviceIdentifier.register(this.getApplication());</span></span><br><span class="line"><span class="comment">//获取IMEI，只支持Android10之前的系统，需要READ_PHONE_STATE权限，可能为空</span></span><br><span class="line">DeviceIdentifier.getIMEI(<span class="built_in">this</span>);</span><br><span class="line"><span class="comment">//获取安卓ID，可能为空</span></span><br><span class="line">DeviceIdentifier.getAndroidID(<span class="built_in">this</span>);</span><br><span class="line"><span class="comment">//获取数字版权管理ID，可能为空。很鸡肋，在某些手机上还可能造成卡死或闪退，自4.2.7版本后已弃用</span></span><br><span class="line">DeviceIdentifier.getWidevineID();</span><br><span class="line"><span class="comment">//获取伪造ID，根据硬件信息生成，不会为空，有大概率会重复</span></span><br><span class="line">DeviceIdentifier.getPseudoID();</span><br><span class="line"><span class="comment">//获取GUID，随机生成，不会为空</span></span><br><span class="line">DeviceIdentifier.getGUID(<span class="built_in">this</span>);</span><br><span class="line"><span class="comment">//是否支持OAID/AAID</span></span><br><span class="line">DeviceID.supportedOAID(<span class="built_in">this</span>);</span><br><span class="line"><span class="comment">//获取OAID/AAID，同步调用</span></span><br><span class="line">DeviceIdentifier.getOAID(<span class="built_in">this</span>);</span><br><span class="line"><span class="comment">//获取OAID/AAID，异步回调</span></span><br><span class="line">DeviceID.getOAID(<span class="built_in">this</span>,newIGetter()&#123;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line">publicvoidonOAIDGetComplete(Stringresult)&#123;</span><br><span class="line"><span class="comment">//不同厂商的OAID/AAID格式是不一样的，可进行MD5、SHA1之类的哈希运算统一</span></span><br><span class="line">Log.d(<span class="string">&quot;oaiddemo&quot;</span>,<span class="string">&quot;获取成功:&quot;</span>+result);</span><br><span class="line">textViewOAID.setText(<span class="string">&quot;OAIDValue:&quot;</span>+result);<span class="comment">//更新TextView文本</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line">publicvoidonOAIDGetError(Exceptionerror)&#123;</span><br><span class="line"><span class="comment">//获取OAID/AAID失败</span></span><br><span class="line">Log.d(<span class="string">&quot;oaiddemo&quot;</span>,<span class="string">&quot;获取失败:&quot;</span>);</span><br><span class="line">textViewOAID.setText(<span class="string">&quot;OAID获取失败&quot;</span>);<span class="comment">//更新TextView文本，表示获取失败</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="效果-1"><a href="#效果-1" class="headerlink" title="效果"></a>效果</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i-blog.csdnimg.cn/blog_migrate/bccea0afd64305d4b738361dedfe7ed7.png"
+                      alt="三方获取结果"
+                ><br><strong>对比官方和三方的结果，获取到的OAID，同一台设备是一致的。</strong></p>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>感谢参考的几篇文档：<br><a class="link"   href="https://blog.csdn.net/Myfittinglife/article/details/121520111" >https://blog.csdn.net/Myfittinglife/article/details/121520111<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br><a class="link"   href="https://blog.csdn.net/mingtiannihao0522/article/details/104630967" >https://blog.csdn.net/mingtiannihao0522/article/details/104630967<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br><a class="link"   href="https://juejin.cn/post/6924191966146068493" >https://juejin.cn/post/6924191966146068493<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>android</tag>
       </tags>
   </entry>
 </search>
