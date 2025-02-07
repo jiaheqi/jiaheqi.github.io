@@ -19,7 +19,7 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://www.jiaheqi.cloud/2025/01/07/unitypackage类型文件解压-import-export/"/>
+    <link rel="canonical" href="https://www.jiaheqi.cloud/2025/02/06/mysql-redis-mongodb的不同使用场景/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
@@ -29,16 +29,16 @@
         
         <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="unitypackage类型文件解压,import,export">
-<meta property="og:url" content="https://www.jiaheqi.cloud/2025/01/07/unitypackage%E7%B1%BB%E5%9E%8B%E6%96%87%E4%BB%B6%E8%A7%A3%E5%8E%8B-import-export/index.html">
+<meta property="og:title" content="MySQL,Redis,MongoDB的不同使用场景">
+<meta property="og:url" content="https://www.jiaheqi.cloud/2025/02/06/MySQL-Redis-MongoDB%E7%9A%84%E4%B8%8D%E5%90%8C%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/index.html">
 <meta property="og:site_name" content="狗卷七の秘密空间">
 <meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.jiaheqi.cloud/images/redefine-og.webp">
-<meta property="article:published_time" content="2025-01-07T09:28:07.000Z">
-<meta property="article:modified_time" content="2025-01-13T06:06:12.342Z">
+<meta property="article:published_time" content="2025-02-06T10:29:04.000Z">
+<meta property="article:modified_time" content="2025-02-06T10:43:50.169Z">
 <meta property="article:author" content="77">
-<meta property="article:tag" content="unity3D">
+<meta property="article:tag" content="数据库">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://www.jiaheqi.cloud/images/redefine-og.webp">
     
@@ -52,7 +52,7 @@
     
     <title>
         
-            unitypackage类型文件解压,import,export | 狗卷七の秘密空间
+            MySQL,Redis,MongoDB的不同使用场景 | 狗卷七の秘密空间
         
     </title>
 
@@ -676,7 +676,7 @@
 		<div class="article-title relative w-full">
 			
 			<div class="w-full flex items-center pt-6 justify-start">
-				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">unitypackage类型文件解压,import,export</h1>
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">MySQL,Redis,MongoDB的不同使用场景</h1>
 			</div>
 			
 		</div>
@@ -697,15 +697,15 @@
 					<div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2025-01-07 17:28:07</span>
-        <span class="mobile">2025-01-07 17:28:07</span>
+        <span class="desktop">2025-02-06 18:29:04</span>
+        <span class="mobile">2025-02-06 18:29:04</span>
         <span class="hover-info">创建</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-01-13 14:06:12</span>
-            <span class="mobile">2025-01-13 14:06:12</span>
+            <span class="desktop">2025-02-06 18:43:50</span>
+            <span class="mobile">2025-02-06 18:43:50</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -733,7 +733,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/unity3D/">unity3D</a>&nbsp;
+                        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>&nbsp;
                     </li>
                 
             </ul>
@@ -743,12 +743,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.5k 字</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1k 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>6 分钟</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>4 分钟</span>
         </span>
     
     
@@ -767,57 +767,102 @@
 
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>痛点：</p>
-<p>在 2019 版本的 unity 编辑器中，会将 iOS 依赖的<code>.bundle</code>,<code>.framework</code>文件识别为一个目录的格式，而 2022 版本的 unity 编辑器会将其识别为一个文件，导致现存的 export 的脚本无法正常导出这两种类型的文件，最终生成的 unitypackage 文件中会缺少<code>.bundle</code>,<code>.framework</code></p>
-<p>解决办法：</p>
-<p>查询和 GPT 无果后决定使用最简单的方式，把<code>.bundle</code>,<code>.framework</code>文件作为一个文件类型导出。</p>
-<h2 id="原因分析"><a href="#原因分析" class="headerlink" title="原因分析"></a>原因分析</h2><p>源代码</p>
-<div class="code-container" data-rel="Csharp"><figure class="iseeu highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> packageName = <span class="string">&quot;ZeusSDK.unitypackage&quot;</span>;</span><br><span class="line"><span class="comment">//需要添加到unitypackage的目录</span></span><br><span class="line"><span class="built_in">string</span>[] dirs = <span class="keyword">new</span> <span class="built_in">string</span>[]</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;Adjust&quot;</span>, <span class="string">&quot;Editor&quot;</span>, <span class="string">&quot;ExternalDependencyManager&quot;</span>, <span class="string">&quot;GravityEngine&quot;</span>, <span class="string">&quot;Resources&quot;</span>,</span><br><span class="line">    <span class="string">&quot;ThinkingAnalytics&quot;</span>, <span class="string">&quot;WebGLTemplates&quot;</span>, <span class="string">&quot;WX-WASM-SDK-V2&quot;</span></span><br><span class="line">&#125;;</span><br><span class="line">locationPathName += <span class="string">&quot;/&quot;</span> + packageName; </span><br><span class="line"><span class="comment">//需要打包的资源</span></span><br><span class="line">List&lt;Object&gt; objs = <span class="keyword">new</span> List&lt;Object&gt;();</span><br><span class="line"></span><br><span class="line"><span class="comment">//需要打包的资源的路径</span></span><br><span class="line">List&lt;<span class="built_in">string</span>[]&gt; assets = <span class="keyword">new</span> List&lt;<span class="built_in">string</span>[]&gt;();</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span> (<span class="built_in">string</span> dir <span class="keyword">in</span> dirs)</span><br><span class="line">&#123;</span><br><span class="line">    Debug.Log(<span class="string">$&quot;dir:<span class="subst">&#123;dir&#125;</span>&quot;</span>);</span><br><span class="line">    assets.Add(Directory.GetFiles(Application.dataPath + <span class="string">&quot;/&quot;</span> + dir, <span class="string">&quot;*&quot;</span>, SearchOption.AllDirectories));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//循环遍历每一个路径，单独加载</span></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; assets.Count; i++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">foreach</span> (<span class="built_in">string</span> strPath <span class="keyword">in</span> assets[i])</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">string</span> strTempPath = strPath;</span><br><span class="line">        <span class="comment">//截取我们需要的相对路径</span></span><br><span class="line">        strTempPath = strTempPath.Substring(strTempPath.IndexOf(<span class="string">&quot;Assets&quot;</span>));</span><br><span class="line">        <span class="comment">//过滤meta文件</span></span><br><span class="line">        <span class="keyword">if</span> (strTempPath.EndsWith(<span class="string">&quot;.meta&quot;</span>))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//根据路径加载资源</span></span><br><span class="line">        Object obj = AssetDatabase.LoadAssetAtPath(strTempPath, <span class="keyword">typeof</span>(Object));</span><br><span class="line">        objs.Add(obj);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> assetPathNames = <span class="keyword">new</span> <span class="built_in">string</span>[objs.Count];</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取每个资源的相对路径</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; assetPathNames.Length; i++)</span><br><span class="line">&#123;</span><br><span class="line">    assetPathNames[i] = AssetDatabase.GetAssetPath(objs[i]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//获取与资源有依赖关系的所有资源列表</span></span><br><span class="line">assetPathNames = AssetDatabase.GetDependencies(assetPathNames);</span><br><span class="line"></span><br><span class="line"><span class="comment">//排除项目有可能生成的文件，防止与项目冲突，使用文档指导配置过程</span></span><br><span class="line"><span class="built_in">string</span> androidRoot = <span class="string">&quot;Assets/Plugins/Android/&quot;</span>;</span><br><span class="line"></span><br><span class="line">List&lt;<span class="built_in">string</span>&gt; excludeFiles = <span class="keyword">new</span> List&lt;<span class="built_in">string</span>&gt;&#123;</span><br><span class="line">    <span class="string">&quot;Assets/Editor/ExportPackage.cs&quot;</span>,</span><br><span class="line">    androidRoot + <span class="string">&quot;baseProjectTemplate.gradle&quot;</span>,</span><br><span class="line">    androidRoot + <span class="string">&quot;launcherTemplate.gradle&quot;</span>,</span><br><span class="line">    androidRoot + <span class="string">&quot;mainTemplate.gradle&quot;</span>,</span><br><span class="line">    androidRoot + <span class="string">&quot;gradleTemplate.properties&quot;</span>,</span><br><span class="line">    androidRoot + <span class="string">&quot;LauncherManifest.xml&quot;</span>,</span><br><span class="line">    androidRoot + <span class="string">&quot;AndroidManifest.xml&quot;</span>,</span><br><span class="line">    androidRoot + <span class="string">&quot;google-services.json&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Assets/Plugins/iOS/ZeusSDK/ZeusSDKInfo.plist&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Assets/Plugins/iOS/ZeusSDK/GoogleService-Info.plist&quot;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">List&lt;<span class="built_in">string</span>&gt; exportAssets = <span class="keyword">new</span> List&lt;<span class="built_in">string</span>&gt;();</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span>(<span class="built_in">string</span> assetPath <span class="keyword">in</span> assetPathNames)&#123;</span><br><span class="line">    <span class="keyword">if</span>(!excludeFiles.Contains(assetPath))&#123;</span><br><span class="line">        exportAssets.Add(assetPath);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//打包Package 最后三个参数分别是:导出操作将异步运行，在导出完成之后在文件浏览窗口显示导出包文件 | 将通过任何子目录列表递归并包含所有资源 | 除了列出的资产路径，所有相关资产将被包括在内</span></span><br><span class="line">AssetDatabase.ExportPackage(exportAssets.ToArray(), locationPathName, ExportPackageOptions.Recurse | ExportPackageOptions.IncludeDependencies);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+			<h2 id="MySQL（关系型数据库）"><a href="#MySQL（关系型数据库）" class="headerlink" title="MySQL（关系型数据库）"></a>MySQL（关系型数据库）</h2><h3 id="场景：用户注册、登录与文章管理"><a href="#场景：用户注册、登录与文章管理" class="headerlink" title="场景：用户注册、登录与文章管理"></a>场景：用户注册、登录与文章管理</h3><h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><ul>
+<li>需要持久化存储用户资料（用户名、密码、邮箱、注册时间等）。</li>
+<li>支持复杂查询（如“查找某用户的所有文章并按时间排序”）。</li>
+<li>需要事务保证数据一致性（如用户注册时同时写入用户表和权限表）。</li>
+</ul>
+<p>示例：</p>
+<div class="code-container" data-rel="Sql"><figure class="iseeu highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 用户表（users）</span></span><br><span class="line"><span class="keyword">CREATE TABLE</span> users (</span><br><span class="line">    id <span class="type">INT</span> <span class="keyword">PRIMARY KEY</span> AUTO_INCREMENT,</span><br><span class="line">    username <span class="type">VARCHAR</span>(<span class="number">50</span>) <span class="keyword">UNIQUE</span> <span class="keyword">NOT NULL</span>,</span><br><span class="line">    password_hash <span class="type">VARCHAR</span>(<span class="number">100</span>) <span class="keyword">NOT NULL</span>,</span><br><span class="line">    email <span class="type">VARCHAR</span>(<span class="number">100</span>) <span class="keyword">UNIQUE</span> <span class="keyword">NOT NULL</span>,</span><br><span class="line">    created_at DATETIME <span class="keyword">DEFAULT</span> <span class="built_in">CURRENT_TIMESTAMP</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 文章表（posts）</span></span><br><span class="line"><span class="keyword">CREATE TABLE</span> posts (</span><br><span class="line">    id <span class="type">INT</span> <span class="keyword">PRIMARY KEY</span> AUTO_INCREMENT,</span><br><span class="line">    user_id <span class="type">INT</span> <span class="keyword">NOT NULL</span>,</span><br><span class="line">    title <span class="type">VARCHAR</span>(<span class="number">200</span>) <span class="keyword">NOT NULL</span>,</span><br><span class="line">    content TEXT <span class="keyword">NOT NULL</span>,</span><br><span class="line">    created_at DATETIME <span class="keyword">DEFAULT</span> <span class="built_in">CURRENT_TIMESTAMP</span>,</span><br><span class="line">    <span class="keyword">FOREIGN KEY</span> (user_id) <span class="keyword">REFERENCES</span> users(id)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询用户及其最新文章</span></span><br><span class="line"><span class="keyword">SELECT</span> users.username, posts.title, posts.created_at</span><br><span class="line"><span class="keyword">FROM</span> users</span><br><span class="line"><span class="keyword">JOIN</span> posts <span class="keyword">ON</span> users.id <span class="operator">=</span> posts.user_id</span><br><span class="line"><span class="keyword">WHERE</span> users.id <span class="operator">=</span> <span class="number">123</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> posts.created_at <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure></div>
 
-<ol>
-<li>调用<code>Directory.GetFiles</code>去遍历所有的目录，对于<code>.bundle</code>,<code>.framework</code>文件，<code>Directory.GetFiles</code>可以识别为目录，并且找到下面的所有子目录和文件</li>
-<li>但是对于<code>AssetDatabase.LoadAssetAtPath</code>无法将路径中包含<code>.bundle</code>,<code>.framework</code>的文件识别为一个objeject，那么导致添加到 objs 中的都是 null</li>
-<li>从而导致<code>AssetDatabase.GetAssetPath</code>去获取路径的时候无法获取到，最终导致<code>AssetDatabase.ExportPackage</code>导出的unitypackage 中缺少路径中包含 <code>.bundle</code>,<code>.framework</code>的文件</li>
-</ol>
-<h2 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h2><ol>
-<li>刚开始想看看有没有人遇到类似问题以及解决，但是没发现有人问类似的问题</li>
-<li>然后看了一下 unity 官方 api 文档，也没有针对于 .bundle, .framework 文件的特殊处理</li>
-<li>所以最终决定用最粗暴的把路径名中包含<code>.bundle</code>,<code>.framework</code>的文件，找到<code>.bundle</code>,<code>.framework</code>这一级作为付目录，直接导出<code>.bundle</code>,<code>.framework</code>文件<br>即：<br>如果路径为<code>abc/def/g.bundle/xxx/xx</code>，<code>abc/def/g.bundle/xxx</code>则只导出<code>abc/def/g.bundle</code>文件，<code>.framework</code>文件&#96; 同理</li>
-</ol>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><div class="code-container" data-rel="Csharp"><figure class="iseeu highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 辅助函数：提取 .bundle 和 .framework文件的父目录路径</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="built_in">string</span> <span class="title">GetAssetDirectory</span>(<span class="params"><span class="built_in">string</span> path, <span class="built_in">string</span> extension</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">int</span> extensionIndex = path.IndexOf(extension);</span><br><span class="line">    <span class="keyword">if</span> (extensionIndex == <span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">string</span>.Empty;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从路径中提取出扩展名对应的文件目录</span></span><br><span class="line">    <span class="keyword">return</span> path.Substring(<span class="number">0</span>, extensionIndex + extension.Length);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 检查路径中是否包含 .bundle 文件</span></span><br><span class="line"><span class="keyword">if</span> (strTempPath.Contains(<span class="string">&quot;.bundle&quot;</span>))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 提取 .bundle 文件的父目录</span></span><br><span class="line">    <span class="built_in">string</span> bundleDirectory = GetAssetDirectory(strTempPath, <span class="string">&quot;.bundle&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果当前已经处理过这个 bundle 目录，就跳过</span></span><br><span class="line">    <span class="keyword">if</span> (processedBundles.Contains(bundleDirectory))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 标记此 bundle 目录已经处理过</span></span><br><span class="line">    processedBundles.Add(bundleDirectory);</span><br><span class="line">    <span class="comment">// 加载 .bundle 文件并直接作为一个资源添加</span></span><br><span class="line">    Object asset = AssetDatabase.LoadAssetAtPath(bundleDirectory, <span class="keyword">typeof</span>(Object));</span><br><span class="line">    <span class="keyword">if</span> (asset != <span class="literal">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        objs.Add(asset); <span class="comment">// 直接添加整个 .bundle 文件</span></span><br><span class="line">        Debug.Log(<span class="string">$&quot;Added .bundle file as asset: <span class="subst">&#123;bundleDirectory&#125;</span>&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        Debug.LogWarning(<span class="string">$&quot;Failed to load .bundle asset: <span class="subst">&#123;bundleDirectory&#125;</span>&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (strTempPath.Contains(<span class="string">&quot;.framework&quot;</span>))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 提取 .framework 文件的目录</span></span><br><span class="line">    <span class="built_in">string</span> frameworkDirectory = GetAssetDirectory(strTempPath, <span class="string">&quot;.framework&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果当前已经处理过这个 .framework 目录，就跳过</span></span><br><span class="line">    <span class="keyword">if</span> (processedBundles.Contains(frameworkDirectory))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 标记此 .framework 目录已经处理过</span></span><br><span class="line">    processedBundles.Add(frameworkDirectory);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 加载 .framework 文件并直接作为一个资源添加</span></span><br><span class="line">    Object asset = AssetDatabase.LoadAssetAtPath(frameworkDirectory, <span class="keyword">typeof</span>(Object));</span><br><span class="line">    <span class="keyword">if</span> (asset != <span class="literal">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        objs.Add(asset); <span class="comment">// 直接添加整个 .framework 文件</span></span><br><span class="line">        Debug.Log(<span class="string">$&quot;Added .framework file as asset: <span class="subst">&#123;frameworkDirectory&#125;</span>&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        Debug.LogWarning(<span class="string">$&quot;Failed to load .framework asset: <span class="subst">&#123;frameworkDirectory&#125;</span>&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><ul>
+<li><p>结构化数据存储，支持复杂 SQL 查询。</p>
+</li>
+<li><p>ACID 事务保证数据一致性（如转账、订单支付）。</p>
+</li>
+<li><p>适合长期存储核心业务数据（用户、订单、商品等）。</p>
+</li>
+</ul>
+<h2 id="Redis（键值对数据库）"><a href="#Redis（键值对数据库）" class="headerlink" title="Redis（键值对数据库）"></a>Redis（键值对数据库）</h2><h3 id="场景：用户会话缓存与热门文章排行榜"><a href="#场景：用户会话缓存与热门文章排行榜" class="headerlink" title="场景：用户会话缓存与热门文章排行榜"></a>场景：用户会话缓存与热门文章排行榜</h3><h3 id="需求-1"><a href="#需求-1" class="headerlink" title="需求"></a>需求</h3><ul>
+<li><p>快速读写用户会话信息（如登录状态）。</p>
+</li>
+<li><p>实时统计热门文章点击量并生成排行榜。</p>
+</li>
+<li><p>缓存用户个人资料，减轻 MySQL 压力。</p>
+</li>
+</ul>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 缓存用户会话（过期时间 30 分钟）</span></span><br><span class="line"><span class="keyword">import</span> redis</span><br><span class="line">r = redis.Redis()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 用户登录成功后缓存会话</span></span><br><span class="line">user_id = <span class="number">123</span></span><br><span class="line">session_token = <span class="string">&quot;abc123xyz&quot;</span></span><br><span class="line">r.<span class="built_in">set</span>(<span class="string">f&quot;session:<span class="subst">&#123;session_token&#125;</span>&quot;</span>, user_id, ex=<span class="number">1800</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取会话</span></span><br><span class="line">current_user = r.get(<span class="string">f&quot;session:<span class="subst">&#123;session_token&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 缓存用户个人资料（JSON 格式）</span></span><br><span class="line">user_profile = &#123;<span class="string">&quot;id&quot;</span>: <span class="number">123</span>, <span class="string">&quot;username&quot;</span>: <span class="string">&quot;alice&quot;</span>, <span class="string">&quot;email&quot;</span>: <span class="string">&quot;alice@example.com&quot;</span>&#125;</span><br><span class="line">r.<span class="built_in">set</span>(<span class="string">f&quot;user_profile:<span class="subst">&#123;user_id&#125;</span>&quot;</span>, json.dumps(user_profile))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 文章点击量实时统计（使用有序集合）</span></span><br><span class="line">r.zincrby(<span class="string">&quot;article_clicks&quot;</span>, <span class="number">1</span>, <span class="string">&quot;article:456&quot;</span>)  <span class="comment"># 文章 456 点击量 +1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取点击量 Top 10 文章</span></span><br><span class="line">top_articles = r.zrevrange(<span class="string">&quot;article_clicks&quot;</span>, <span class="number">0</span>, <span class="number">9</span>, withscores=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure></div>
 
-<h2 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h2><p>对于以这种方式导出的unitypackage，是否和 unity 编辑器本身的导出方式一致，需要测试</p>
-<ol>
-<li>使用脚本导出文件大小和使用 unity 编辑器的窗口工具导出大小一致<br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-01-07-18-00-58.png"
-                      alt="2025-01-07-18-00-58.png"
-                ></li>
-<li>使用空工程先后导入两个 package，不存在文件 new 差异<br>遇到的问题是即使导入完全一样的 package 两次，.png, .strings, .h, .plist, .nib 这些文件会被再次标记为 new，即使是使用 unity 的 aeests export package 导出的包也是如此，所以可以认为脚本导出的包该行为不存在问题</li>
-<li>import 导入脚本导出的项目后测试功能正常</li>
-</ol>
-<h2 id="其他tips"><a href="#其他tips" class="headerlink" title="其他tips"></a>其他tips</h2><p>本来想通过解压 unitypackage 然后结合 beyond compare 来比较两个包，但是发现解压之后包中的文件过多，以及一些<code>.meta</code>文件导致的差异无法忽略，所以最有效的方式还是分别 import 的形式进行比较。</p>
-<p>unitypackage 解压命令</p>
-<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf abc.unitypackage -C temp</span><br></pre></td></tr></table></figure></div>
+<h3 id="优势-1"><a href="#优势-1" class="headerlink" title="优势"></a>优势</h3><ul>
+<li><p>内存存储，读写性能极高（每秒数十万次操作）。</p>
+</li>
+<li><p>支持丰富的数据结构（字符串、哈希、有序集合等）。</p>
+</li>
+<li><p>适合临时数据（会话）、实时统计、分布式锁等场景。</p>
+</li>
+</ul>
+<h2 id="MongoDB（文档数据库）"><a href="#MongoDB（文档数据库）" class="headerlink" title="MongoDB（文档数据库）"></a>MongoDB（文档数据库）</h2><h3 id="场景：实时聊天消息存储"><a href="#场景：实时聊天消息存储" class="headerlink" title="场景：实时聊天消息存储"></a>场景：实时聊天消息存储</h3><h3 id="需求-2"><a href="#需求-2" class="headerlink" title="需求"></a>需求</h3><ul>
+<li><p>存储用户之间的实时聊天消息（文本、图片、表情等）。</p>
+</li>
+<li><p>消息格式灵活（可能包含动态字段，如消息类型、已读状态、撤回状态）。</p>
+</li>
+<li><p>快速插入和按时间范围查询历史消息。</p>
+</li>
+</ul>
+<h3 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h3><div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># MongoDB 文档结构（无需预定义 Schema）</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;_id&quot;</span>: ObjectId(<span class="string">&quot;6123456789abcdef01234567&quot;</span>),</span><br><span class="line">    <span class="string">&quot;sender_id&quot;</span>: <span class="number">123</span>,</span><br><span class="line">    <span class="string">&quot;receiver_id&quot;</span>: <span class="number">456</span>,</span><br><span class="line">    <span class="string">&quot;content&quot;</span>: <span class="string">&quot;明天一起吃饭吗？&quot;</span>,</span><br><span class="line">    <span class="string">&quot;type&quot;</span>: <span class="string">&quot;text&quot;</span>,  <span class="comment"># 消息类型：text/image/emoji</span></span><br><span class="line">    <span class="string">&quot;timestamp&quot;</span>: ISODate(<span class="string">&quot;2023-10-05T14:23:45Z&quot;</span>),</span><br><span class="line">    <span class="string">&quot;read_status&quot;</span>: <span class="literal">False</span>,  <span class="comment"># 是否已读</span></span><br><span class="line">    <span class="string">&quot;metadata&quot;</span>: &#123;  <span class="comment"># 动态扩展字段</span></span><br><span class="line">        <span class="string">&quot;image_url&quot;</span>: <span class="string">&quot;https://example.com/photo.jpg&quot;</span>,</span><br><span class="line">        <span class="string">&quot;width&quot;</span>: <span class="number">800</span>,</span><br><span class="line">        <span class="string">&quot;height&quot;</span>: <span class="number">600</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查询用户 123 和 456 的最近 20 条消息</span></span><br><span class="line">db.messages.find(&#123;</span><br><span class="line">    <span class="string">&quot;$or&quot;</span>: [</span><br><span class="line">        &#123;<span class="string">&quot;sender_id&quot;</span>: <span class="number">123</span>, <span class="string">&quot;receiver_id&quot;</span>: <span class="number">456</span>&#125;,</span><br><span class="line">        &#123;<span class="string">&quot;sender_id&quot;</span>: <span class="number">456</span>, <span class="string">&quot;receiver_id&quot;</span>: <span class="number">123</span>&#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;).sort(&#123;<span class="string">&quot;timestamp&quot;</span>: -<span class="number">1</span>&#125;).limit(<span class="number">20</span>)</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="优势-2"><a href="#优势-2" class="headerlink" title="优势"></a>优势</h3><ul>
+<li><p>文档模型灵活，支持动态字段和嵌套结构。</p>
+</li>
+<li><p>水平扩展能力强，适合海量数据存储（如日志、IoT 数据）。</p>
+</li>
+<li><p>高吞吐量写入，适合实时消息、评论、日志等场景。</p>
+</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><table>
+<thead>
+<tr>
+<th>数据库类型</th>
+<th>优势</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MySQL</td>
+<td>结构化数据存储、支持复杂 SQL 查询、事务</td>
+<td>长期存储核心业务数据：用户资料、订单、文章</td>
+</tr>
+<tr>
+<td>Redis</td>
+<td>内存存储、读写性能极高</td>
+<td>快速读写用户会话信息、实时统计热门文章、缓存用户个人资料</td>
+</tr>
+<tr>
+<td>MongoDB</td>
+<td>文档模型灵活、支持动态字段和嵌套结构、水平扩展、高吞吐</td>
+<td>实时聊天消息存储、实时日志存储</td>
+</tr>
+</tbody></table>
+<p>为什么不用Redis存储所有实时消息？<br>因为Redis虽然快，但数据持久化和存储量可能不如MongoDB合适。<br>为什么不用MySQL存储消息？<br>因为消息结构可能复杂，频繁的插入和查询在关系型数据库中可能效率不高。</p>
+
 		</div>
 
 		
 		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
 			<div class="article-copyright-info-container">
     <ul>
-        <li><strong>标题:</strong> unitypackage类型文件解压,import,export</li>
+        <li><strong>标题:</strong> MySQL,Redis,MongoDB的不同使用场景</li>
         <li><strong>作者:</strong> 77</li>
         <li><strong>创建于
-                :</strong> 2025-01-07 17:28:07</li>
+                :</strong> 2025-02-06 18:29:04</li>
         
             <li>
                 <strong>更新于
-                    :</strong> 2025-01-13 14:06:12
+                    :</strong> 2025-02-06 18:43:50
             </li>
         
         <li>
-            <strong>链接:</strong> https://www.jiaheqi.cloud/2025/01/07/unitypackage类型文件解压-import-export/
+            <strong>链接:</strong> https://www.jiaheqi.cloud/2025/02/06/MySQL-Redis-MongoDB的不同使用场景/
         </li>
         <li>
             <strong>
@@ -839,7 +884,7 @@
 		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
 			
 			<li class="tag-item mx-0.5">
-				<a href="/tags/unity3D/">#unity3D</a>&nbsp;
+				<a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">#数据库</a>&nbsp;
 			</li>
 			
 		</ul>
@@ -851,12 +896,12 @@
 		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
 			
 			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="prev" rel="prev" href="/2025/01/13/Android%E8%AE%BE%E5%A4%87%E8%8E%B7%E5%8F%96OAID%E8%B0%83%E7%A0%94%E5%92%8C%E5%AE%9E%E7%8E%B0/">
+				<a class="prev" rel="prev" href="/2025/02/07/Shell-%E6%89%A7%E8%A1%8C%E5%A4%B1%E8%B4%A5%E7%9A%84%E5%8E%9F%E5%9B%A0%E6%8E%92%E6%9F%A5/">
 					<span class="left arrow-icon flex justify-center items-center">
 						<i class="fa-solid fa-chevron-left"></i>
 					</span>
 					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item">Android设备获取OAID调研和实现</span>
+						<span class="post-nav-title-item">Shell 执行失败的原因排查</span>
 						<span class="post-nav-item">上一篇</span>
 					</span>
 				</a>
@@ -864,9 +909,9 @@
 			
 			
 			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="next" rel="next" href="/2025/01/06/Real-ESRGAN-%E5%9B%BE%E5%83%8F%E5%92%8C%E8%A7%86%E9%A2%91AI%E4%BF%AE%E5%A4%8D%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">
+				<a class="next" rel="next" href="/2025/01/21/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86/">
 					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item">Real-ESRGAN 图像和视频AI修复工具使用</span>
+						<span class="post-nav-title-item">常用命令合集</span>
 						<span class="post-nav-item">下一篇</span>
 					</span>
 					<span class="right arrow-icon flex justify-center items-center">
@@ -930,8 +975,8 @@
 		<div class="post-toc-wrap">
 	<div class="post-toc">
 		<div class="toc-title">目录</div>
-		<div class="page-title">unitypackage类型文件解压,import,export</div>
-		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%9B%A0%E5%88%86%E6%9E%90"><span class="nav-text">原因分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3"><span class="nav-text">问题解决</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C"><span class="nav-text">测试结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96tips"><span class="nav-text">其他tips</span></a></li></ol>
+		<div class="page-title">MySQL,Redis,MongoDB的不同使用场景</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL%EF%BC%88%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%89"><span class="nav-text">MySQL（关系型数据库）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF%EF%BC%9A%E7%94%A8%E6%88%B7%E6%B3%A8%E5%86%8C%E3%80%81%E7%99%BB%E5%BD%95%E4%B8%8E%E6%96%87%E7%AB%A0%E7%AE%A1%E7%90%86"><span class="nav-text">场景：用户注册、登录与文章管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9C%80%E6%B1%82"><span class="nav-text">需求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF"><span class="nav-text">优势</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis%EF%BC%88%E9%94%AE%E5%80%BC%E5%AF%B9%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%89"><span class="nav-text">Redis（键值对数据库）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF%EF%BC%9A%E7%94%A8%E6%88%B7%E4%BC%9A%E8%AF%9D%E7%BC%93%E5%AD%98%E4%B8%8E%E7%83%AD%E9%97%A8%E6%96%87%E7%AB%A0%E6%8E%92%E8%A1%8C%E6%A6%9C"><span class="nav-text">场景：用户会话缓存与热门文章排行榜</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9C%80%E6%B1%82-1"><span class="nav-text">需求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-text">示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF-1"><span class="nav-text">优势</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MongoDB%EF%BC%88%E6%96%87%E6%A1%A3%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%89"><span class="nav-text">MongoDB（文档数据库）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF%EF%BC%9A%E5%AE%9E%E6%97%B6%E8%81%8A%E5%A4%A9%E6%B6%88%E6%81%AF%E5%AD%98%E5%82%A8"><span class="nav-text">场景：实时聊天消息存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9C%80%E6%B1%82-2"><span class="nav-text">需求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B-1"><span class="nav-text">示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF-2"><span class="nav-text">优势</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li></ol>
 
 	</div>
 </div>
