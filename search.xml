@@ -206,61 +206,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Unity 如何修改 UPM 导入的依赖</title>
-    <url>/2025/02/20/Unity-%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9-UPM-%E5%AF%BC%E5%85%A5%E7%9A%84%E4%BE%9D%E8%B5%96/</url>
-    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>我项目的代码中使用到了关于 wechat 的宏，wechat 的依赖程序集中有自己定义的编译条件宏，如果二者不一致，会导致项目代码和依赖使用不对齐，所以需要修改 wechat 依赖的编译条件宏。</p>
-<p>首先，在 Unity 中，我们无法直接修改 UPM 的依赖，因为 UPM 是由 Unity 自动管理的，导入后会在 Packages 的 Read Only 目录下，所以无法直接修改。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-02-20-11-52-33.png"
-                      alt="2025-02-20-11-52-33.png"
-                ></p>
-<p>所以需要采取一些策略，实现能够修改依赖中程序集定义的编译条件宏。</p>
-<h2 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h2><ol>
-<li>引入 wechat 的方式不变，依旧是通过 UPM 引入</li>
-<li>引入后，将 Packages ReadOnly 目录下的 wechat 依赖复制到 Packages 目录下， 这时候就不再是只读</li>
-<li>修改编译条件宏</li>
-<li>手动在项目 packages-lock.json 中追加依赖,version 参考 filesystem 中packages 中的版本<br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-02-20-11-57-31.png"
-                      alt="2025-02-20-11-57-31.png"
-                ><br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-02-20-12-00-04.png"
-                      alt="2025-02-20-12-00-04.png"
-                ></li>
-</ol>
-<h2 id="差异对比"><a href="#差异对比" class="headerlink" title="差异对比"></a>差异对比</h2><h3 id="UPM直接引入"><a href="#UPM直接引入" class="headerlink" title="UPM直接引入"></a>UPM直接引入</h3><h4 id="项目mainifest-json文件"><a href="#项目mainifest-json文件" class="headerlink" title="项目mainifest.json文件"></a>项目mainifest.json文件</h4><div class="code-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;com.qq.weixin.minigame&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://github.com/wechat-miniprogram/minigame-tuanjie-transform-sdk.git&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;com.unity.2d.sprite&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></div>
-
-<h4 id="项目packages-lock-json文件"><a href="#项目packages-lock-json文件" class="headerlink" title="项目packages-lock.json文件"></a>项目packages-lock.json文件</h4><div class="code-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;com.qq.weixin.minigame&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://github.com/wechat-miniprogram/minigame-tuanjie-transform-sdk.git&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;depth&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;source&quot;</span><span class="punctuation">:</span> <span class="string">&quot;git&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hash&quot;</span><span class="punctuation">:</span> <span class="string">&quot;a5a5f32fbd7812f8acc76942cb027282fa42ab0f&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;com.unity.2d.sprite&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;depth&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;source&quot;</span><span class="punctuation">:</span> <span class="string">&quot;builtin&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></div>
-
-<h4 id="wechat依赖mainifest-json文件"><a href="#wechat依赖mainifest-json文件" class="headerlink" title="wechat依赖mainifest.json文件"></a>wechat依赖mainifest.json文件</h4><div class="code-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;com.qq.weixin.minigame&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://github.com/wechat-miniprogram/minigame-tuanjie-transform-sdk&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></div>
-
-<h4 id="wechat依赖packages-json文件"><a href="#wechat依赖packages-json文件" class="headerlink" title="wechat依赖packages.json文件"></a>wechat依赖packages.json文件</h4><div class="code-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;com.qq.weixin.minigame&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;displayName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;WXSDK&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;WeChat Mini Game Tuanjie Engine Adapter SDK Package.&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.1.24&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;unity&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2019.4&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;unityRelease&quot;</span><span class="punctuation">:</span> <span class="string">&quot;29f1&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;keywords&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;Tuanjie&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;WX&quot;</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></div>
-
-<h3 id="UPM引入后移动位置"><a href="#UPM引入后移动位置" class="headerlink" title="UPM引入后移动位置"></a>UPM引入后移动位置</h3><h4 id="项目-mainifest-json文件"><a href="#项目-mainifest-json文件" class="headerlink" title="项目 mainifest.json文件"></a>项目 mainifest.json文件</h4><p>不包含 wechat依赖</p>
-<div class="code-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="code"><pre><span class="line">  <span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;com.unity.2d.sprite&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;com.unity.2d.tilemap&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;com.unity.ai.navigation&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.1.5&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;com.unity.analytics&quot;</span><span class="punctuation">:</span> <span class="string">&quot;3.8.1&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;com.unity.collab-proxy&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2.3.1&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;com.unity.ide.rider&quot;</span><span class="punctuation">:</span> <span class="string">&quot;3.0.28&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;com.unity.ide.visualstudio&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2.0.22&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;com.unity.ide.vscode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.2.5&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></div>
-
-<h4 id="项目-packages-lock-json文件"><a href="#项目-packages-lock-json文件" class="headerlink" title="项目 packages-lock.json文件"></a>项目 packages-lock.json文件</h4><p>需要手动追加wechat 依赖</p>
-<div class="code-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="code"><pre><span class="line">  <span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;com.qq.weixin.minigame&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;file:com.qq.weixin.minigame@a5a5f32fbd&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;depth&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;source&quot;</span><span class="punctuation">:</span> <span class="string">&quot;embedded&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;com.unity.2d.sprite&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;depth&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;source&quot;</span><span class="punctuation">:</span> <span class="string">&quot;builtin&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span>    </span><br></pre></td></tr></table></figure></div>
-
-<h4 id="wechat-依赖mainifest-json文件"><a href="#wechat-依赖mainifest-json文件" class="headerlink" title="wechat 依赖mainifest.json文件"></a>wechat 依赖mainifest.json文件</h4><div class="code-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;com.qq.weixin.minigame&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://github.com/wechat-miniprogram/minigame-tuanjie-transform-sdk&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></div>
-
-<h4 id="wechat-依赖packages-json文件"><a href="#wechat-依赖packages-json文件" class="headerlink" title="wechat 依赖packages.json文件"></a>wechat 依赖packages.json文件</h4><div class="code-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;com.qq.weixin.minigame&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;displayName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;WXSDK&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;WeChat Mini Game Tuanjie Engine Adapter SDK Package.&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.1.24&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;unity&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2019.4&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;unityRelease&quot;</span><span class="punctuation">:</span> <span class="string">&quot;29f1&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;keywords&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;Tuanjie&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;WX&quot;</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></div>
-
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>手动移动 wx 依赖位置后，wx 依赖中的 mainifest.json文件和packages.json文件无需变更，但是项目中的mainifest.json文件和packages.json文件需要做相应调整</p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>unity3D</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Shell 执行失败的原因排查</title>
     <url>/2025/02/07/Shell-%E6%89%A7%E8%A1%8C%E5%A4%B1%E8%B4%A5%E7%9A%84%E5%8E%9F%E5%9B%A0%E6%8E%92%E6%9F%A5/</url>
     <content><![CDATA[<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>jenkins 任务中，有一个步骤是执行一个 shell 命令执行 c#中的一个方法导出 package，命令如下</p>
@@ -309,50 +254,59 @@
       </tags>
   </entry>
   <entry>
-    <title>Android设备获取OAID调研和实现</title>
-    <url>/2025/01/13/Android%E8%AE%BE%E5%A4%87%E8%8E%B7%E5%8F%96OAID%E8%B0%83%E7%A0%94%E5%92%8C%E5%AE%9E%E7%8E%B0/</url>
-    <content><![CDATA[<h2 id="什么是OAID、AAID、VAID"><a href="#什么是OAID、AAID、VAID" class="headerlink" title="什么是OAID、AAID、VAID"></a>什么是OAID、AAID、VAID</h2><h3 id="OAID"><a href="#OAID" class="headerlink" title="OAID"></a>OAID</h3><p>OAID是”Android ID”（安卓ID）的一种替代方案，其全称为”Open Anonymous Identifier”（开放匿名标识符）。<br>因传统的移动终端设备标识如国际移动设备识别码（IMEI）等已被部分国家认定为用户隐私的一部分，并存在被篡改和冒用的风险，所以在Android 10及后续版本中非厂商系统应用将无法获取IMEI、MAC等设备信息。无法获取IMEI会在用户行为统计过程中对设备识别产生一定影响。<br>移动安全联盟针对该问题联合国内手机厂商推出补充设备标准体系方案，选择OAID字段作为IMEI等的替代字段。OAID字段是由中国信通院联合华为、小米、OPPO、VIVO等厂商共同推出的设备识别字段，具有一定的权威性，可满足用户行为统计的使用场景。</p>
-<h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><p>设备唯一标识符（UDID）：设备唯一硬件标识，设备生产时根据特定的硬件 信息生成，可用于设备的生产环境及合法性校验。不对第三方应用提供获取接 口，无法通过 SDK 获取。<br> 匿名设备标识符（OAID）：可以连接所有应用数据的标识符，移动智能终端 系统首次启动后立即生成，可用于广告业务。可以通过 SDK 获取到接口状态（重 置、关闭）、ID 值。<br> 开发者匿名设备标识符（VAID）：用于开放给开发者的设备标识符，可在应用安装时产生，可用于同一开发者不同应用之间的推荐。可以通过 SDK 获取到 ID 值。<br>应用匿名设备标识符（AAID）：第三方应用获取的匿名设备标识，可在应用安装时产生，可用于用户统计等。可以通过 SDK 获取到 ID值。  </p>
-<h2 id="如何获取"><a href="#如何获取" class="headerlink" title="如何获取"></a>如何获取</h2><h3 id="官方SDK接入"><a href="#官方SDK接入" class="headerlink" title="官方SDK接入"></a>官方SDK接入</h3><h4 id="SDK获取"><a href="#SDK获取" class="headerlink" title="SDK获取"></a>SDK获取</h4><p>移动安全联盟官网：<a class="link"   href="http://www.msa-alliance.cn/" >http://www.msa-alliance.cn/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>注意：但是注册需要企业账号，个人开发者无法注册使用，所以测试的时候在网上找了其他人提供的已经下载好的官方SDK。<br>百度云盘地址：<a class="link"   href="https://pan.baidu.com/s/1sVzBD_3mTXD_oqyu5I2VtQ" >https://pan.baidu.com/s/1sVzBD_3mTXD_oqyu5I2VtQ<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>  提取码：we54<br>官方文档：<br>见附件。</p>
-<h4 id="配置和调用"><a href="#配置和调用" class="headerlink" title="配置和调用"></a>配置和调用</h4><ol>
-<li><p>把 oaid_sdk_x.x.x.aar 拷贝到项的 libs 目录，并设置依赖，其中 x.x.x 代表版本号</p>
-</li>
-<li><p>将 supplierconfig.json 拷贝到项目 assets 目录下<br>appid 需要移动互联网应用开发者根据应用使用需求到不同终端厂商的应用 商城申请，具体需咨询相关厂商，不需要填写其他第三方应用商店的 appid。 appid 只与 VAID 的获取有关，用于判断是否为同一开发者，如不需获取 vaid 可 不填写。目前只需设置 vivo 的 appid。（我们本次只需要获取OAID，所以不需要上架，也不需要appid）<br>配置文件中部分设备如果不配置厂商会无法获取，部分设备如小米即使配置文件中没有，也不影响获取，所以我们对接的时候，为了保险起见，配置文件中尽可能全一些。【 官方文档中说配置文件不用修改，只需填写对应 appid，并放到 assets 目录下即可  】</p>
-</li>
-<li><p>设置依赖</p>
-</li>
-<li><p>设置gradle编译选项，开发者可以根据自己对平台的选择进行合理配置（测试的时候不配置也没什么问题）<br> ndk { abiFilters ‘armeabi-v7a’,’x86’,’arm64-v8a’,’x86_64’,’armeabi’ }</p>
-</li>
-</ol>
-<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title class_">IIdentifierListener</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> TextView tvContent;</span><br><span class="line">    String oaid;</span><br><span class="line">    String vaid;</span><br><span class="line">    String aaid;</span><br><span class="line">    <span class="meta">@SuppressLint(&quot;MissingInflatedId&quot;)</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">(Bundle savedInstanceState)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        tvContent = findViewById(R.id.tv);</span><br><span class="line">        MdidSdkHelper.InitSdk(getApplicationContext(), <span class="literal">true</span>, <span class="built_in">this</span>);</span><br><span class="line">        <span class="comment">//结果是异步返回的,使用时为空的话可以先休眠几秒</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;OAID: &quot;</span>+oaid);</span><br><span class="line">        System.out.println(<span class="string">&quot;VAID: &quot;</span>+vaid);</span><br><span class="line">        System.out.println(<span class="string">&quot;AAID: &quot;</span>+aaid);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">OnSupport</span><span class="params">(<span class="type">boolean</span> b, IdSupplier idSupplier)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(idSupplier==<span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        oaid=idSupplier.getOAID();</span><br><span class="line">        vaid=idSupplier.getVAID();</span><br><span class="line">        aaid=idSupplier.getAAID();</span><br><span class="line"></span><br><span class="line">        StringBuilder builder=<span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        builder.append(<span class="string">&quot;support: &quot;</span>).append(idSupplier.isSupported()?<span class="string">&quot;true&quot;</span>:<span class="string">&quot;false&quot;</span>).append(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        builder.append(<span class="string">&quot;OAID: &quot;</span>).append(oaid).append(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        builder.append(<span class="string">&quot;VAID: &quot;</span>).append(vaid).append(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        builder.append(<span class="string">&quot;AAID: &quot;</span>).append(aaid).append(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">        String idstext=builder.toString();</span><br><span class="line">        Log.d(<span class="string">&quot;SdkDemo: &quot;</span>, idstext);</span><br><span class="line">        onIdsAvalid(idstext);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onIdsAvalid</span><span class="params">(<span class="meta">@NonNull</span> <span class="keyword">final</span> String ids)</span> &#123;</span><br><span class="line">        runOnUiThread(<span class="keyword">new</span> <span class="title class_">Runnable</span>() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">                tvContent.setText(ids);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+    <title>python设置镜像源临时和永久两种方式</title>
+    <url>/2025/01/21/python%E8%AE%BE%E7%BD%AE%E9%95%9C%E5%83%8F%E6%BA%90%E4%B8%B4%E6%97%B6%E5%92%8C%E6%B0%B8%E4%B9%85%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F/</url>
+    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在安装某些python packages的时候因为国内的网络问题可能导致安装失败，所以需要切换到国内的镜像源。</p>
+<h2 id="临时"><a href="#临时" class="headerlink" title="临时"></a>临时</h2><p>trusted-host是添加域名信任，-i 后面跟镜像源</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">pip install requests -I --trusted-host pypi.tuna.tsinghua.edu.cn -i https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure></div>
 
-<h4 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h4><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i-blog.csdnimg.cn/blog_migrate/06645bb792f3ec187fe7c025961d3536.png"
-                      alt="官方sdk获取结果"
-                ></p>
-<h3 id="三方实现接入"><a href="#三方实现接入" class="headerlink" title="三方实现接入"></a>三方实现接入</h3><h4 id="接入指引"><a href="#接入指引" class="headerlink" title="接入指引"></a>接入指引</h4><p>github地址：<a class="link"   href="https://github.com/gzu-liyujiang/Android_CN_OAID" >https://github.com/gzu-liyujiang/Android_CN_OAID<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>文档已经写的特别详细了，但是还是有一些地方需要注意一下：</p>
-<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">implementation(<span class="string">&#x27;com.github.gzu-liyujiang:Android_CN_OAID:最新版本号&#x27;</span>) &#123;</span><br><span class="line"><span class="comment">// 如果使用了移动安全联盟SDK，共存的话需排除掉本项目依赖的华为/荣耀官方广告标识服务SDK，因为移动安全联盟SDK也依赖了华为/荣耀的SDK</span></span><br><span class="line"><span class="comment">// 如果华为官方广告标识服务SDK下载失败或编译报错的话，可考虑在 build.gradle 中增加以下配置：</span></span><br><span class="line"><span class="comment">// repositories &#123; maven &#123; url &#x27;https://developer.huawei.com/repo&#x27; &#125; &#125;</span></span><br><span class="line"><span class="comment">// runtimeOnly &quot;com.huawei.hms:ads-identifier:3.4.62.300&quot;</span></span><br><span class="line">exclude group: <span class="string">&#x27;com.huawei.hms&#x27;</span>, <span class="keyword">module</span>: <span class="string">&#x27;ads-identifier&#x27;</span> </span><br><span class="line"><span class="comment">// 荣耀官方广告标识服务SDK同理：      </span></span><br><span class="line"><span class="comment">// repositories &#123; maven &#123; url &#x27;https://developer.hihonor.com/repo&#x27; &#125; &#125;</span></span><br><span class="line"><span class="comment">// runtimeOnly &quot;com.hihonor.mcs:ads-identifier:1.0.2.301&quot;</span></span><br><span class="line">exclude group: <span class="string">&#x27;com.hihonor.mcs&#x27;</span>, <span class="keyword">module</span>: <span class="string">&#x27;ads-identifier&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h2 id="永久"><a href="#永久" class="headerlink" title="永久"></a>永久</h2><p>trusted-host是添加域名信任</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple</span><br><span class="line"></span><br><span class="line">pip config set global.trusted-host &quot;pypi.tuna.tsinghua.edu.cn&quot;   </span><br></pre></td></tr></table></figure></div>
 
-<p>在这里，如果在kotlin的dsl中应该这么写exclude group：</p>
-<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">implementation (<span class="string">&quot;com.github.gzu-liyujiang:Android_CN_OAID:4.2.9&quot;</span>)&#123;</span><br><span class="line">exclude(group = <span class="string">&quot;com.huawei.hms&#x27;, module: &#x27;ads-identifier&quot;</span>)</span><br><span class="line">exclude(group = <span class="string">&quot;&#x27;com.hihonor.mcs&#x27;, module: &#x27;ads-identifier&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">publicclassMainActivityextendsAppCompatActivity&#123;</span><br><span class="line">privateTextViewtextViewOAID;</span><br><span class="line"><span class="meta">@SuppressLint(&quot;MissingInflatedId&quot;)</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line">protectedvoidonCreate(BundlesavedInstanceState)&#123;</span><br><span class="line"><span class="built_in">super</span>.onCreate(savedInstanceState);</span><br><span class="line">setContentView(R.layout.activity_main);</span><br><span class="line">textViewOAID=findViewById(R.id.textViewOAID);</span><br><span class="line"><span class="comment">//DeviceIdentifier.register(this.getApplication());</span></span><br><span class="line"><span class="comment">//获取IMEI，只支持Android10之前的系统，需要READ_PHONE_STATE权限，可能为空</span></span><br><span class="line">DeviceIdentifier.getIMEI(<span class="built_in">this</span>);</span><br><span class="line"><span class="comment">//获取安卓ID，可能为空</span></span><br><span class="line">DeviceIdentifier.getAndroidID(<span class="built_in">this</span>);</span><br><span class="line"><span class="comment">//获取数字版权管理ID，可能为空。很鸡肋，在某些手机上还可能造成卡死或闪退，自4.2.7版本后已弃用</span></span><br><span class="line">DeviceIdentifier.getWidevineID();</span><br><span class="line"><span class="comment">//获取伪造ID，根据硬件信息生成，不会为空，有大概率会重复</span></span><br><span class="line">DeviceIdentifier.getPseudoID();</span><br><span class="line"><span class="comment">//获取GUID，随机生成，不会为空</span></span><br><span class="line">DeviceIdentifier.getGUID(<span class="built_in">this</span>);</span><br><span class="line"><span class="comment">//是否支持OAID/AAID</span></span><br><span class="line">DeviceID.supportedOAID(<span class="built_in">this</span>);</span><br><span class="line"><span class="comment">//获取OAID/AAID，同步调用</span></span><br><span class="line">DeviceIdentifier.getOAID(<span class="built_in">this</span>);</span><br><span class="line"><span class="comment">//获取OAID/AAID，异步回调</span></span><br><span class="line">DeviceID.getOAID(<span class="built_in">this</span>,newIGetter()&#123;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line">publicvoidonOAIDGetComplete(Stringresult)&#123;</span><br><span class="line"><span class="comment">//不同厂商的OAID/AAID格式是不一样的，可进行MD5、SHA1之类的哈希运算统一</span></span><br><span class="line">Log.d(<span class="string">&quot;oaiddemo&quot;</span>,<span class="string">&quot;获取成功:&quot;</span>+result);</span><br><span class="line">textViewOAID.setText(<span class="string">&quot;OAIDValue:&quot;</span>+result);<span class="comment">//更新TextView文本</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line">publicvoidonOAIDGetError(Exceptionerror)&#123;</span><br><span class="line"><span class="comment">//获取OAID/AAID失败</span></span><br><span class="line">Log.d(<span class="string">&quot;oaiddemo&quot;</span>,<span class="string">&quot;获取失败:&quot;</span>);</span><br><span class="line">textViewOAID.setText(<span class="string">&quot;OAID获取失败&quot;</span>);<span class="comment">//更新TextView文本，表示获取失败</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<h4 id="效果-1"><a href="#效果-1" class="headerlink" title="效果"></a>效果</h4><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i-blog.csdnimg.cn/blog_migrate/bccea0afd64305d4b738361dedfe7ed7.png"
-                      alt="三方获取结果"
-                ><br><strong>对比官方和三方的结果，获取到的OAID，同一台设备是一致的。</strong></p>
-<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>感谢参考的几篇文档：<br><a class="link"   href="https://blog.csdn.net/Myfittinglife/article/details/121520111" >https://blog.csdn.net/Myfittinglife/article/details/121520111<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br><a class="link"   href="https://blog.csdn.net/mingtiannihao0522/article/details/104630967" >https://blog.csdn.net/mingtiannihao0522/article/details/104630967<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br><a class="link"   href="https://juejin.cn/post/6924191966146068493" >https://juejin.cn/post/6924191966146068493<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<h2 id="常见的镜像网站如下"><a href="#常见的镜像网站如下" class="headerlink" title="常见的镜像网站如下"></a>常见的镜像网站如下</h2><p>中国科技大学 <a class="link"   href="https://pypi.mirrors.ustc.edu.cn/simple" >https://pypi.mirrors.ustc.edu.cn/simple<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>清华：<a class="link"   href="https://pypi.tuna.tsinghua.edu.cn/simple" >https://pypi.tuna.tsinghua.edu.cn/simple<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>阿里云：<a class="link"   href="http://mirrors.aliyun.com/pypi/simple" >http://mirrors.aliyun.com/pypi/simple<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>华中理工大学：<a class="link"   href="http://pypi.hustunique.com/" >http://pypi.hustunique.com/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>山东理工大学：<a class="link"   href="http://pypi.sdutlinux.org/" >http://pypi.sdutlinux.org/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>豆瓣：<a class="link"   href="http://pypi.douban.com/simple" >http://pypi.douban.com/simple<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
 ]]></content>
       <categories>
         <category>技术</category>
       </categories>
       <tags>
-        <tag>android</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>unity strip level导致的编译运行问题</title>
+    <url>/2025/02/13/unity-strip-level%E5%AF%BC%E8%87%B4%E7%9A%84%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h2 id="问题现象"><a href="#问题现象" class="headerlink" title="问题现象"></a>问题现象</h2><p>unity 导出的 webGL 微信小程序，运行时，总是报错方法签名异常，以及某些实例初始化失败，再三确认后代码逻辑没有问题，但是报错依旧存在。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/mdimages/2025-02-17-11-03-15.png"
+                      alt="2025-02-17-11-03-15.png"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/mdimages/2025-02-17-11-03-28.png"
+                      alt="2025-02-17-11-03-28.png"
+                ></p>
+<h2 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h2><ol>
+<li><p>projects settings 中的managed stripping level 设置为 high，导致unity导出的webgl代码中，部分方法被切割删除，导致运行时，报错。</p>
+</li>
+<li><p>Unity 会在构建过程中对代码进行裁剪，以减小最终应用的体积，尤其是在进行 IL2CPP 或 AOT（Ahead of Time）编译时。默认情况下，Unity 会剔除所有未被直接使用的代码，这就会导致<br>可能会误删一些通过<code>反射</code>等方式间接调用的类、方法或字段。</p>
+</li>
+<li><p>当设置 managed stripping level 为 high 时，Unity 会更激进地剔除代码，可能会误删一些你需要的程序集或功能，因此你需要通过 link.xml 文件显式地保留这些程序集中的内容。</p>
+</li>
+</ol>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>添加 link.xml</p>
+<p>在 Unity 项目中，link.xml 文件的作用是告诉 Unity 编译器在进行代码裁剪（stripping）时，哪些程序集、类、方法或字段应该被保留，而不被剔除。</p>
+<div class="code-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">&lt;?xml</span> <span class="string">version=&quot;1.0&quot;</span> <span class="string">encoding=&quot;utf-8&quot;?&gt;</span></span><br><span class="line"><span class="string">&lt;linker&gt;</span></span><br><span class="line">    <span class="string">&lt;assembly</span> <span class="string">fullname=&quot;ZeusSDK&quot;</span> <span class="string">preserve=&quot;all&quot;/&gt;</span></span><br><span class="line">    <span class="string">&lt;assembly</span> <span class="string">fullname=&quot;Granite&quot;</span> <span class="string">preserve=&quot;all&quot;/&gt;</span></span><br><span class="line"><span class="string">&lt;/linker&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+<p>这段代码的作用是告诉 Unity 保留 ZeusSDK 和 Granite 这两个程序集中的所有类和成员，无论它们是否被直接引用。</p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>unituy3D</tag>
       </tags>
   </entry>
   <entry>
@@ -434,40 +388,78 @@
       </tags>
   </entry>
   <entry>
-    <title>unity strip level导致的编译运行问题</title>
-    <url>/2025/02/13/unity-strip-level%E5%AF%BC%E8%87%B4%E7%9A%84%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h2 id="问题现象"><a href="#问题现象" class="headerlink" title="问题现象"></a>问题现象</h2><p>unity 导出的 webGL 微信小程序，运行时，总是报错方法签名异常，以及某些实例初始化失败，再三确认后代码逻辑没有问题，但是报错依旧存在。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-02-17-11-03-15.png"
-                      alt="2025-02-17-11-03-15.png"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/mdimages/2025-02-17-11-03-28.png"
-                      alt="2025-02-17-11-03-28.png"
-                ></p>
-<h2 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h2><ol>
-<li><p>projects settings 中的managed stripping level 设置为 high，导致unity导出的webgl代码中，部分方法被切割删除，导致运行时，报错。</p>
+    <title>工具合集</title>
+    <url>/2025/02/08/%E5%B7%A5%E5%85%B7%E5%90%88%E9%9B%86/</url>
+    <content><![CDATA[<h2 id="json处理"><a href="#json处理" class="headerlink" title="json处理"></a>json处理</h2><p><a class="link"   href="https://www.sojson.com/" >json格式化和转义<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<h2 id="diff文本"><a href="#diff文本" class="headerlink" title="diff文本"></a>diff文本</h2><p><a class="link"   href="https://tool.chinaz.com/tools/diff" >diff文本<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<h2 id="解密-解码"><a href="#解密-解码" class="headerlink" title="解密&amp;解码"></a>解密&amp;解码</h2><p><a class="link"   href="https://www.bejson.com/jwt/" >jwt解密&#x2F;加密<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>常用命令合集</title>
+    <url>/2025/01/21/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86/</url>
+    <content><![CDATA[<h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><h3 id="pip"><a href="#pip" class="headerlink" title="pip"></a>pip</h3><h4 id="升级-pip-版本"><a href="#升级-pip-版本" class="headerlink" title="升级 pip 版本"></a>升级 pip 版本</h4><div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">pip install --upgrade pip</span><br><span class="line">python -m pip install --upgrade pip</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="显示已安装packages"><a href="#显示已安装packages" class="headerlink" title="显示已安装packages"></a>显示已安装packages</h4><div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">pip list</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="venv"><a href="#venv" class="headerlink" title="venv"></a>venv</h3><h4 id="创建虚拟环境"><a href="#创建虚拟环境" class="headerlink" title="创建虚拟环境"></a>创建虚拟环境</h4><div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">python -m venv myenv</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="激活虚拟环境"><a href="#激活虚拟环境" class="headerlink" title="激活虚拟环境"></a>激活虚拟环境</h4><div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">source myenv/bin/activate</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="退出虚拟环境"><a href="#退出虚拟环境" class="headerlink" title="退出虚拟环境"></a>退出虚拟环境</h4><div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">deactivate</span><br></pre></td></tr></table></figure></div>
+]]></content>
+  </entry>
+  <entry>
+    <title>Android设备获取OAID调研和实现</title>
+    <url>/2025/01/13/Android%E8%AE%BE%E5%A4%87%E8%8E%B7%E5%8F%96OAID%E8%B0%83%E7%A0%94%E5%92%8C%E5%AE%9E%E7%8E%B0/</url>
+    <content><![CDATA[<h2 id="什么是OAID、AAID、VAID"><a href="#什么是OAID、AAID、VAID" class="headerlink" title="什么是OAID、AAID、VAID"></a>什么是OAID、AAID、VAID</h2><h3 id="OAID"><a href="#OAID" class="headerlink" title="OAID"></a>OAID</h3><p>OAID是”Android ID”（安卓ID）的一种替代方案，其全称为”Open Anonymous Identifier”（开放匿名标识符）。<br>因传统的移动终端设备标识如国际移动设备识别码（IMEI）等已被部分国家认定为用户隐私的一部分，并存在被篡改和冒用的风险，所以在Android 10及后续版本中非厂商系统应用将无法获取IMEI、MAC等设备信息。无法获取IMEI会在用户行为统计过程中对设备识别产生一定影响。<br>移动安全联盟针对该问题联合国内手机厂商推出补充设备标准体系方案，选择OAID字段作为IMEI等的替代字段。OAID字段是由中国信通院联合华为、小米、OPPO、VIVO等厂商共同推出的设备识别字段，具有一定的权威性，可满足用户行为统计的使用场景。</p>
+<h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><p>设备唯一标识符（UDID）：设备唯一硬件标识，设备生产时根据特定的硬件 信息生成，可用于设备的生产环境及合法性校验。不对第三方应用提供获取接 口，无法通过 SDK 获取。<br> 匿名设备标识符（OAID）：可以连接所有应用数据的标识符，移动智能终端 系统首次启动后立即生成，可用于广告业务。可以通过 SDK 获取到接口状态（重 置、关闭）、ID 值。<br> 开发者匿名设备标识符（VAID）：用于开放给开发者的设备标识符，可在应用安装时产生，可用于同一开发者不同应用之间的推荐。可以通过 SDK 获取到 ID 值。<br>应用匿名设备标识符（AAID）：第三方应用获取的匿名设备标识，可在应用安装时产生，可用于用户统计等。可以通过 SDK 获取到 ID值。  </p>
+<h2 id="如何获取"><a href="#如何获取" class="headerlink" title="如何获取"></a>如何获取</h2><h3 id="官方SDK接入"><a href="#官方SDK接入" class="headerlink" title="官方SDK接入"></a>官方SDK接入</h3><h4 id="SDK获取"><a href="#SDK获取" class="headerlink" title="SDK获取"></a>SDK获取</h4><p>移动安全联盟官网：<a class="link"   href="http://www.msa-alliance.cn/" >http://www.msa-alliance.cn/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>注意：但是注册需要企业账号，个人开发者无法注册使用，所以测试的时候在网上找了其他人提供的已经下载好的官方SDK。<br>百度云盘地址：<a class="link"   href="https://pan.baidu.com/s/1sVzBD_3mTXD_oqyu5I2VtQ" >https://pan.baidu.com/s/1sVzBD_3mTXD_oqyu5I2VtQ<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>  提取码：we54<br>官方文档：<br>见附件。</p>
+<h4 id="配置和调用"><a href="#配置和调用" class="headerlink" title="配置和调用"></a>配置和调用</h4><ol>
+<li><p>把 oaid_sdk_x.x.x.aar 拷贝到项的 libs 目录，并设置依赖，其中 x.x.x 代表版本号</p>
 </li>
-<li><p>Unity 会在构建过程中对代码进行裁剪，以减小最终应用的体积，尤其是在进行 IL2CPP 或 AOT（Ahead of Time）编译时。默认情况下，Unity 会剔除所有未被直接使用的代码，这就会导致<br>可能会误删一些通过<code>反射</code>等方式间接调用的类、方法或字段。</p>
+<li><p>将 supplierconfig.json 拷贝到项目 assets 目录下<br>appid 需要移动互联网应用开发者根据应用使用需求到不同终端厂商的应用 商城申请，具体需咨询相关厂商，不需要填写其他第三方应用商店的 appid。 appid 只与 VAID 的获取有关，用于判断是否为同一开发者，如不需获取 vaid 可 不填写。目前只需设置 vivo 的 appid。（我们本次只需要获取OAID，所以不需要上架，也不需要appid）<br>配置文件中部分设备如果不配置厂商会无法获取，部分设备如小米即使配置文件中没有，也不影响获取，所以我们对接的时候，为了保险起见，配置文件中尽可能全一些。【 官方文档中说配置文件不用修改，只需填写对应 appid，并放到 assets 目录下即可  】</p>
 </li>
-<li><p>当设置 managed stripping level 为 high 时，Unity 会更激进地剔除代码，可能会误删一些你需要的程序集或功能，因此你需要通过 link.xml 文件显式地保留这些程序集中的内容。</p>
+<li><p>设置依赖</p>
+</li>
+<li><p>设置gradle编译选项，开发者可以根据自己对平台的选择进行合理配置（测试的时候不配置也没什么问题）<br> ndk { abiFilters ‘armeabi-v7a’,’x86’,’arm64-v8a’,’x86_64’,’armeabi’ }</p>
 </li>
 </ol>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>添加 link.xml</p>
-<p>在 Unity 项目中，link.xml 文件的作用是告诉 Unity 编译器在进行代码裁剪（stripping）时，哪些程序集、类、方法或字段应该被保留，而不被剔除。</p>
-<div class="code-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">&lt;?xml</span> <span class="string">version=&quot;1.0&quot;</span> <span class="string">encoding=&quot;utf-8&quot;?&gt;</span></span><br><span class="line"><span class="string">&lt;linker&gt;</span></span><br><span class="line">    <span class="string">&lt;assembly</span> <span class="string">fullname=&quot;ZeusSDK&quot;</span> <span class="string">preserve=&quot;all&quot;/&gt;</span></span><br><span class="line">    <span class="string">&lt;assembly</span> <span class="string">fullname=&quot;Granite&quot;</span> <span class="string">preserve=&quot;all&quot;/&gt;</span></span><br><span class="line"><span class="string">&lt;/linker&gt;</span></span><br></pre></td></tr></table></figure></div>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title class_">IIdentifierListener</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> TextView tvContent;</span><br><span class="line">    String oaid;</span><br><span class="line">    String vaid;</span><br><span class="line">    String aaid;</span><br><span class="line">    <span class="meta">@SuppressLint(&quot;MissingInflatedId&quot;)</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">(Bundle savedInstanceState)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        tvContent = findViewById(R.id.tv);</span><br><span class="line">        MdidSdkHelper.InitSdk(getApplicationContext(), <span class="literal">true</span>, <span class="built_in">this</span>);</span><br><span class="line">        <span class="comment">//结果是异步返回的,使用时为空的话可以先休眠几秒</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;OAID: &quot;</span>+oaid);</span><br><span class="line">        System.out.println(<span class="string">&quot;VAID: &quot;</span>+vaid);</span><br><span class="line">        System.out.println(<span class="string">&quot;AAID: &quot;</span>+aaid);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">OnSupport</span><span class="params">(<span class="type">boolean</span> b, IdSupplier idSupplier)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(idSupplier==<span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        oaid=idSupplier.getOAID();</span><br><span class="line">        vaid=idSupplier.getVAID();</span><br><span class="line">        aaid=idSupplier.getAAID();</span><br><span class="line"></span><br><span class="line">        StringBuilder builder=<span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        builder.append(<span class="string">&quot;support: &quot;</span>).append(idSupplier.isSupported()?<span class="string">&quot;true&quot;</span>:<span class="string">&quot;false&quot;</span>).append(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        builder.append(<span class="string">&quot;OAID: &quot;</span>).append(oaid).append(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        builder.append(<span class="string">&quot;VAID: &quot;</span>).append(vaid).append(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        builder.append(<span class="string">&quot;AAID: &quot;</span>).append(aaid).append(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">        String idstext=builder.toString();</span><br><span class="line">        Log.d(<span class="string">&quot;SdkDemo: &quot;</span>, idstext);</span><br><span class="line">        onIdsAvalid(idstext);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onIdsAvalid</span><span class="params">(<span class="meta">@NonNull</span> <span class="keyword">final</span> String ids)</span> &#123;</span><br><span class="line">        runOnUiThread(<span class="keyword">new</span> <span class="title class_">Runnable</span>() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">                tvContent.setText(ids);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
-<p>这段代码的作用是告诉 Unity 保留 ZeusSDK 和 Granite 这两个程序集中的所有类和成员，无论它们是否被直接引用。</p>
+<h4 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i-blog.csdnimg.cn/blog_migrate/06645bb792f3ec187fe7c025961d3536.png"
+                      alt="官方sdk获取结果"
+                ></p>
+<h3 id="三方实现接入"><a href="#三方实现接入" class="headerlink" title="三方实现接入"></a>三方实现接入</h3><h4 id="接入指引"><a href="#接入指引" class="headerlink" title="接入指引"></a>接入指引</h4><p>github地址：<a class="link"   href="https://github.com/gzu-liyujiang/Android_CN_OAID" >https://github.com/gzu-liyujiang/Android_CN_OAID<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>文档已经写的特别详细了，但是还是有一些地方需要注意一下：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">implementation(<span class="string">&#x27;com.github.gzu-liyujiang:Android_CN_OAID:最新版本号&#x27;</span>) &#123;</span><br><span class="line"><span class="comment">// 如果使用了移动安全联盟SDK，共存的话需排除掉本项目依赖的华为/荣耀官方广告标识服务SDK，因为移动安全联盟SDK也依赖了华为/荣耀的SDK</span></span><br><span class="line"><span class="comment">// 如果华为官方广告标识服务SDK下载失败或编译报错的话，可考虑在 build.gradle 中增加以下配置：</span></span><br><span class="line"><span class="comment">// repositories &#123; maven &#123; url &#x27;https://developer.huawei.com/repo&#x27; &#125; &#125;</span></span><br><span class="line"><span class="comment">// runtimeOnly &quot;com.huawei.hms:ads-identifier:3.4.62.300&quot;</span></span><br><span class="line">exclude group: <span class="string">&#x27;com.huawei.hms&#x27;</span>, <span class="keyword">module</span>: <span class="string">&#x27;ads-identifier&#x27;</span> </span><br><span class="line"><span class="comment">// 荣耀官方广告标识服务SDK同理：      </span></span><br><span class="line"><span class="comment">// repositories &#123; maven &#123; url &#x27;https://developer.hihonor.com/repo&#x27; &#125; &#125;</span></span><br><span class="line"><span class="comment">// runtimeOnly &quot;com.hihonor.mcs:ads-identifier:1.0.2.301&quot;</span></span><br><span class="line">exclude group: <span class="string">&#x27;com.hihonor.mcs&#x27;</span>, <span class="keyword">module</span>: <span class="string">&#x27;ads-identifier&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>在这里，如果在kotlin的dsl中应该这么写exclude group：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">implementation (<span class="string">&quot;com.github.gzu-liyujiang:Android_CN_OAID:4.2.9&quot;</span>)&#123;</span><br><span class="line">exclude(group = <span class="string">&quot;com.huawei.hms&#x27;, module: &#x27;ads-identifier&quot;</span>)</span><br><span class="line">exclude(group = <span class="string">&quot;&#x27;com.hihonor.mcs&#x27;, module: &#x27;ads-identifier&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">publicclassMainActivityextendsAppCompatActivity&#123;</span><br><span class="line">privateTextViewtextViewOAID;</span><br><span class="line"><span class="meta">@SuppressLint(&quot;MissingInflatedId&quot;)</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line">protectedvoidonCreate(BundlesavedInstanceState)&#123;</span><br><span class="line"><span class="built_in">super</span>.onCreate(savedInstanceState);</span><br><span class="line">setContentView(R.layout.activity_main);</span><br><span class="line">textViewOAID=findViewById(R.id.textViewOAID);</span><br><span class="line"><span class="comment">//DeviceIdentifier.register(this.getApplication());</span></span><br><span class="line"><span class="comment">//获取IMEI，只支持Android10之前的系统，需要READ_PHONE_STATE权限，可能为空</span></span><br><span class="line">DeviceIdentifier.getIMEI(<span class="built_in">this</span>);</span><br><span class="line"><span class="comment">//获取安卓ID，可能为空</span></span><br><span class="line">DeviceIdentifier.getAndroidID(<span class="built_in">this</span>);</span><br><span class="line"><span class="comment">//获取数字版权管理ID，可能为空。很鸡肋，在某些手机上还可能造成卡死或闪退，自4.2.7版本后已弃用</span></span><br><span class="line">DeviceIdentifier.getWidevineID();</span><br><span class="line"><span class="comment">//获取伪造ID，根据硬件信息生成，不会为空，有大概率会重复</span></span><br><span class="line">DeviceIdentifier.getPseudoID();</span><br><span class="line"><span class="comment">//获取GUID，随机生成，不会为空</span></span><br><span class="line">DeviceIdentifier.getGUID(<span class="built_in">this</span>);</span><br><span class="line"><span class="comment">//是否支持OAID/AAID</span></span><br><span class="line">DeviceID.supportedOAID(<span class="built_in">this</span>);</span><br><span class="line"><span class="comment">//获取OAID/AAID，同步调用</span></span><br><span class="line">DeviceIdentifier.getOAID(<span class="built_in">this</span>);</span><br><span class="line"><span class="comment">//获取OAID/AAID，异步回调</span></span><br><span class="line">DeviceID.getOAID(<span class="built_in">this</span>,newIGetter()&#123;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line">publicvoidonOAIDGetComplete(Stringresult)&#123;</span><br><span class="line"><span class="comment">//不同厂商的OAID/AAID格式是不一样的，可进行MD5、SHA1之类的哈希运算统一</span></span><br><span class="line">Log.d(<span class="string">&quot;oaiddemo&quot;</span>,<span class="string">&quot;获取成功:&quot;</span>+result);</span><br><span class="line">textViewOAID.setText(<span class="string">&quot;OAIDValue:&quot;</span>+result);<span class="comment">//更新TextView文本</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line">publicvoidonOAIDGetError(Exceptionerror)&#123;</span><br><span class="line"><span class="comment">//获取OAID/AAID失败</span></span><br><span class="line">Log.d(<span class="string">&quot;oaiddemo&quot;</span>,<span class="string">&quot;获取失败:&quot;</span>);</span><br><span class="line">textViewOAID.setText(<span class="string">&quot;OAID获取失败&quot;</span>);<span class="comment">//更新TextView文本，表示获取失败</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="效果-1"><a href="#效果-1" class="headerlink" title="效果"></a>效果</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i-blog.csdnimg.cn/blog_migrate/bccea0afd64305d4b738361dedfe7ed7.png"
+                      alt="三方获取结果"
+                ><br><strong>对比官方和三方的结果，获取到的OAID，同一台设备是一致的。</strong></p>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>感谢参考的几篇文档：<br><a class="link"   href="https://blog.csdn.net/Myfittinglife/article/details/121520111" >https://blog.csdn.net/Myfittinglife/article/details/121520111<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br><a class="link"   href="https://blog.csdn.net/mingtiannihao0522/article/details/104630967" >https://blog.csdn.net/mingtiannihao0522/article/details/104630967<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br><a class="link"   href="https://juejin.cn/post/6924191966146068493" >https://juejin.cn/post/6924191966146068493<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
 ]]></content>
       <categories>
         <category>技术</category>
       </categories>
       <tags>
-        <tag>unituy3D</tag>
+        <tag>android</tag>
       </tags>
   </entry>
   <entry>
@@ -559,161 +551,58 @@
       </tags>
   </entry>
   <entry>
-    <title>工具合集</title>
-    <url>/2025/02/08/%E5%B7%A5%E5%85%B7%E5%90%88%E9%9B%86/</url>
-    <content><![CDATA[<h2 id="json处理"><a href="#json处理" class="headerlink" title="json处理"></a>json处理</h2><p><a class="link"   href="https://www.sojson.com/" >json格式化和转义<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-<h2 id="diff文本"><a href="#diff文本" class="headerlink" title="diff文本"></a>diff文本</h2><p><a class="link"   href="https://tool.chinaz.com/tools/diff" >diff文本<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-<h2 id="解密-解码"><a href="#解密-解码" class="headerlink" title="解密&amp;解码"></a>解密&amp;解码</h2><p><a class="link"   href="https://www.bejson.com/jwt/" >jwt解密&#x2F;加密<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-]]></content>
-      <categories>
-        <category>工具</category>
-      </categories>
-      <tags>
-        <tag>工具</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>常用命令合集</title>
-    <url>/2025/01/21/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86/</url>
-    <content><![CDATA[<h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><h3 id="pip"><a href="#pip" class="headerlink" title="pip"></a>pip</h3><h4 id="升级-pip-版本"><a href="#升级-pip-版本" class="headerlink" title="升级 pip 版本"></a>升级 pip 版本</h4><div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">pip install --upgrade pip</span><br><span class="line">python -m pip install --upgrade pip</span><br></pre></td></tr></table></figure></div>
+    <title>Unity 如何修改 UPM 导入的依赖</title>
+    <url>/2025/02/20/Unity-%E5%A6%82%E4%BD%95%E4%BF%AE%E6%94%B9-UPM-%E5%AF%BC%E5%85%A5%E7%9A%84%E4%BE%9D%E8%B5%96/</url>
+    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>我项目的代码中使用到了关于 wechat 的宏，wechat 的依赖程序集中有自己定义的编译条件宏，如果二者不一致，会导致项目代码和依赖使用不对齐，所以需要修改 wechat 依赖的编译条件宏。</p>
+<p>首先，在 Unity 中，我们无法直接修改 UPM 的依赖，因为 UPM 是由 Unity 自动管理的，导入后会在 Packages 的 Read Only 目录下，所以无法直接修改。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/mdimages/2025-02-20-11-52-33.png"
+                      alt="2025-02-20-11-52-33.png"
+                ></p>
+<p>所以需要采取一些策略，实现能够修改依赖中程序集定义的编译条件宏。</p>
+<h2 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h2><ol>
+<li>引入 wechat 的方式不变，依旧是通过 UPM 引入</li>
+<li>引入后，将 Packages ReadOnly 目录下的 wechat 依赖复制到 Packages 目录下， 这时候就不再是只读</li>
+<li>修改编译条件宏</li>
+<li>手动在项目 packages-lock.json 中追加依赖,version 参考 filesystem 中packages 中的版本<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/mdimages/2025-02-20-11-57-31.png"
+                      alt="2025-02-20-11-57-31.png"
+                ><br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/mdimages/2025-02-20-12-00-04.png"
+                      alt="2025-02-20-12-00-04.png"
+                ></li>
+</ol>
+<h2 id="差异对比"><a href="#差异对比" class="headerlink" title="差异对比"></a>差异对比</h2><h3 id="UPM直接引入"><a href="#UPM直接引入" class="headerlink" title="UPM直接引入"></a>UPM直接引入</h3><h4 id="项目mainifest-json文件"><a href="#项目mainifest-json文件" class="headerlink" title="项目mainifest.json文件"></a>项目mainifest.json文件</h4><div class="code-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;com.qq.weixin.minigame&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://github.com/wechat-miniprogram/minigame-tuanjie-transform-sdk.git&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;com.unity.2d.sprite&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></div>
 
-<h4 id="显示已安装packages"><a href="#显示已安装packages" class="headerlink" title="显示已安装packages"></a>显示已安装packages</h4><div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">pip list</span><br></pre></td></tr></table></figure></div>
+<h4 id="项目packages-lock-json文件"><a href="#项目packages-lock-json文件" class="headerlink" title="项目packages-lock.json文件"></a>项目packages-lock.json文件</h4><div class="code-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;com.qq.weixin.minigame&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://github.com/wechat-miniprogram/minigame-tuanjie-transform-sdk.git&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;depth&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;source&quot;</span><span class="punctuation">:</span> <span class="string">&quot;git&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;hash&quot;</span><span class="punctuation">:</span> <span class="string">&quot;a5a5f32fbd7812f8acc76942cb027282fa42ab0f&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;com.unity.2d.sprite&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;depth&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;source&quot;</span><span class="punctuation">:</span> <span class="string">&quot;builtin&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></div>
 
-<h3 id="venv"><a href="#venv" class="headerlink" title="venv"></a>venv</h3><h4 id="创建虚拟环境"><a href="#创建虚拟环境" class="headerlink" title="创建虚拟环境"></a>创建虚拟环境</h4><div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">python -m venv myenv</span><br></pre></td></tr></table></figure></div>
+<h4 id="wechat依赖mainifest-json文件"><a href="#wechat依赖mainifest-json文件" class="headerlink" title="wechat依赖mainifest.json文件"></a>wechat依赖mainifest.json文件</h4><div class="code-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;com.qq.weixin.minigame&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://github.com/wechat-miniprogram/minigame-tuanjie-transform-sdk&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></div>
 
-<h4 id="激活虚拟环境"><a href="#激活虚拟环境" class="headerlink" title="激活虚拟环境"></a>激活虚拟环境</h4><div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">source myenv/bin/activate</span><br></pre></td></tr></table></figure></div>
+<h4 id="wechat依赖packages-json文件"><a href="#wechat依赖packages-json文件" class="headerlink" title="wechat依赖packages.json文件"></a>wechat依赖packages.json文件</h4><div class="code-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;com.qq.weixin.minigame&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;displayName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;WXSDK&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;WeChat Mini Game Tuanjie Engine Adapter SDK Package.&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.1.24&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;unity&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2019.4&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;unityRelease&quot;</span><span class="punctuation">:</span> <span class="string">&quot;29f1&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;keywords&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;Tuanjie&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;WX&quot;</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></div>
 
-<h4 id="退出虚拟环境"><a href="#退出虚拟环境" class="headerlink" title="退出虚拟环境"></a>退出虚拟环境</h4><div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">deactivate</span><br></pre></td></tr></table></figure></div>
-]]></content>
-  </entry>
-  <entry>
-    <title>python设置镜像源临时和永久两种方式</title>
-    <url>/2025/01/21/python%E8%AE%BE%E7%BD%AE%E9%95%9C%E5%83%8F%E6%BA%90%E4%B8%B4%E6%97%B6%E5%92%8C%E6%B0%B8%E4%B9%85%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F/</url>
-    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在安装某些python packages的时候因为国内的网络问题可能导致安装失败，所以需要切换到国内的镜像源。</p>
-<h2 id="临时"><a href="#临时" class="headerlink" title="临时"></a>临时</h2><p>trusted-host是添加域名信任，-i 后面跟镜像源</p>
-<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">pip install requests -I --trusted-host pypi.tuna.tsinghua.edu.cn -i https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure></div>
+<h3 id="UPM引入后移动位置"><a href="#UPM引入后移动位置" class="headerlink" title="UPM引入后移动位置"></a>UPM引入后移动位置</h3><h4 id="项目-mainifest-json文件"><a href="#项目-mainifest-json文件" class="headerlink" title="项目 mainifest.json文件"></a>项目 mainifest.json文件</h4><p>不包含 wechat依赖</p>
+<div class="code-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="code"><pre><span class="line">  <span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;com.unity.2d.sprite&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;com.unity.2d.tilemap&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;com.unity.ai.navigation&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.1.5&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;com.unity.analytics&quot;</span><span class="punctuation">:</span> <span class="string">&quot;3.8.1&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;com.unity.collab-proxy&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2.3.1&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;com.unity.ide.rider&quot;</span><span class="punctuation">:</span> <span class="string">&quot;3.0.28&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;com.unity.ide.visualstudio&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2.0.22&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;com.unity.ide.vscode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.2.5&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></div>
 
-<h2 id="永久"><a href="#永久" class="headerlink" title="永久"></a>永久</h2><p>trusted-host是添加域名信任</p>
-<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple</span><br><span class="line"></span><br><span class="line">pip config set global.trusted-host &quot;pypi.tuna.tsinghua.edu.cn&quot;   </span><br></pre></td></tr></table></figure></div>
+<h4 id="项目-packages-lock-json文件"><a href="#项目-packages-lock-json文件" class="headerlink" title="项目 packages-lock.json文件"></a>项目 packages-lock.json文件</h4><p>需要手动追加wechat 依赖</p>
+<div class="code-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="code"><pre><span class="line">  <span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;com.qq.weixin.minigame&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;file:com.qq.weixin.minigame@a5a5f32fbd&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;depth&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;source&quot;</span><span class="punctuation">:</span> <span class="string">&quot;embedded&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;com.unity.2d.sprite&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;depth&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;source&quot;</span><span class="punctuation">:</span> <span class="string">&quot;builtin&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span>    </span><br></pre></td></tr></table></figure></div>
 
-<h2 id="常见的镜像网站如下"><a href="#常见的镜像网站如下" class="headerlink" title="常见的镜像网站如下"></a>常见的镜像网站如下</h2><p>中国科技大学 <a class="link"   href="https://pypi.mirrors.ustc.edu.cn/simple" >https://pypi.mirrors.ustc.edu.cn/simple<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>清华：<a class="link"   href="https://pypi.tuna.tsinghua.edu.cn/simple" >https://pypi.tuna.tsinghua.edu.cn/simple<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>阿里云：<a class="link"   href="http://mirrors.aliyun.com/pypi/simple" >http://mirrors.aliyun.com/pypi/simple<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>华中理工大学：<a class="link"   href="http://pypi.hustunique.com/" >http://pypi.hustunique.com/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>山东理工大学：<a class="link"   href="http://pypi.sdutlinux.org/" >http://pypi.sdutlinux.org/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>豆瓣：<a class="link"   href="http://pypi.douban.com/simple" >http://pypi.douban.com/simple<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<h4 id="wechat-依赖mainifest-json文件"><a href="#wechat-依赖mainifest-json文件" class="headerlink" title="wechat 依赖mainifest.json文件"></a>wechat 依赖mainifest.json文件</h4><div class="code-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;com.qq.weixin.minigame&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://github.com/wechat-miniprogram/minigame-tuanjie-transform-sdk&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></div>
+
+<h4 id="wechat-依赖packages-json文件"><a href="#wechat-依赖packages-json文件" class="headerlink" title="wechat 依赖packages.json文件"></a>wechat 依赖packages.json文件</h4><div class="code-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;com.qq.weixin.minigame&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;displayName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;WXSDK&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;WeChat Mini Game Tuanjie Engine Adapter SDK Package.&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.1.24&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;unity&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2019.4&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;unityRelease&quot;</span><span class="punctuation">:</span> <span class="string">&quot;29f1&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;keywords&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;Tuanjie&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;WX&quot;</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>手动移动 wx 依赖位置后，wx 依赖中的 mainifest.json文件和packages.json文件无需变更，但是项目中的mainifest.json文件和packages.json文件需要做相应调整</p>
 ]]></content>
       <categories>
         <category>技术</category>
       </categories>
       <tags>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2024/12/31/private/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a class="link"   href="https://hexo.io/" >Hexo<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>! This is your very first post. Check <a class="link"   href="https://hexo.io/docs/" >documentation<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> for more info. If you get any problems when using Hexo, you can find the answer in <a class="link"   href="https://hexo.io/docs/troubleshooting.html" >troubleshooting<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> or you can ask me on <a class="link"   href="https://github.com/hexojs/hexo/issues" >GitHub<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure></div>
-
-<p>More info: <a class="link"   href="https://hexo.io/docs/writing.html" >Writing<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure></div>
-
-<p>More info: <a class="link"   href="https://hexo.io/docs/server.html" >Server<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">hexo generate or hexo g</span><br></pre></td></tr></table></figure></div>
-
-<p>More info: <a class="link"   href="https://hexo.io/docs/generating.html" >Generating<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">hexo deploy or hexo d</span><br></pre></td></tr></table></figure></div>
-
-<p>More info: <a class="link"   href="https://hexo.io/docs/one-command-deployment.html" >Deployment<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>2025年2月每日工作清单</title>
-    <url>/2025/02/11/private/2025%E5%B9%B42%E6%9C%88%E6%AF%8F%E6%97%A5%E5%B7%A5%E4%BD%9C%E6%B8%85%E5%8D%95/</url>
-    <content><![CDATA[<h2 id="2025-02-11-周二"><a href="#2025-02-11-周二" class="headerlink" title="2025.02.11 周二"></a>2025.02.11 周二</h2><ul>
-<li><input checked="" disabled="" type="checkbox"> 添加裁剪隔离，避免类被裁剪 @重友 ，添加后出新包 @贾赫琦</li>
-<li><input checked="" disabled="" type="checkbox"> 微信小游戏登录回调消息提添加 detail @重友</li>
-<li><input checked="" disabled="" type="checkbox"> getPlatform 方法 webGL 平台需要做到可以区分是微信还是抖音 @重友</li>
-<li><input checked="" disabled="" type="checkbox"> 微信广告回调的补充处理 @重友</li>
-<li><input checked="" disabled="" type="checkbox"> 郑老师，项目测试没问题后,release3_reconstruct分支合并 release3 @贾赫琦</li>
-<li><input checked="" disabled="" type="checkbox"> 三方登录 Authentication 的 factory接口 review @光哥</li>
-<li><input checked="" disabled="" type="checkbox"> 微信和抖音平台的广告 unit id 获取需要追加到 game&#x2F;info 中 @王悦</li>
-<li><input checked="" disabled="" type="checkbox"> 微信排行榜需求测试 @贾赫琦</li>
-<li><input checked="" disabled="" type="checkbox"> 引力光哥修改的部分代码的合并 @贾赫琦</li>
-<li><input disabled="" type="checkbox"> 微信消息订阅报错：fail, 0 : requestSubscribeMessage:fail require user interaction (only in touchend event) @重友</li>
-</ul>
-<h2 id="2025-02-13-周四"><a href="#2025-02-13-周四" class="headerlink" title="2025.02.13 周四"></a>2025.02.13 周四</h2><ul>
-<li><input checked="" disabled="" type="checkbox"> 抖音广告回调的补充处理 @重友 @王悦</li>
-<li><input checked="" disabled="" type="checkbox"> 抖音的功能的测试 @贾赫琦</li>
-<li><input checked="" disabled="" type="checkbox"> MonoBehaviour 调整，测试能够正常调用zeus server @光哥 @贾赫琦</li>
-</ul>
-<h2 id="2025-02-20-周四"><a href="#2025-02-20-周四" class="headerlink" title="2025.02.20 周四"></a>2025.02.20 周四</h2><ul>
-<li><input disabled="" type="checkbox"> 抖音排行榜功能 @重友</li>
-<li><input disabled="" type="checkbox"> ModuleConfigXXX.json中移除了paths的节点， 因为没用。 ModuleConfigTemplate。json里的还有用。功能合并 release3 @光哥 @贾赫琦</li>
-</ul>
-]]></content>
-      <categories>
-        <category>工作</category>
-      </categories>
-      <tags>
-        <tag>工作清单</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>测试用参数</title>
-    <url>/2025/02/14/private/%E6%B5%8B%E8%AF%95%E7%94%A8%E5%8F%82%E6%95%B0/</url>
-    <content><![CDATA[<h2 id="微信小程序"><a href="#微信小程序" class="headerlink" title="微信小程序"></a>微信小程序</h2><h3 id="Appid"><a href="#Appid" class="headerlink" title="Appid"></a>Appid</h3><ul>
-<li>仙路何方： wx05dd926e19017db6</li>
-<li>测试 Rank ： wxa61244f467112940</li>
-</ul>
-<h3 id="微信广告ID"><a href="#微信广告ID" class="headerlink" title="微信广告ID"></a>微信广告ID</h3><p>{ “rewarded_ad_id”, “adunit-16f279208d14fb8a” }<br>{ “interstitial_ad_id”, “adunit-f748eed6c5dbb429” }</p>
-<h2 id="抖音小程序"><a href="#抖音小程序" class="headerlink" title="抖音小程序"></a>抖音小程序</h2><h3 id="AppId"><a href="#AppId" class="headerlink" title="AppId"></a>AppId</h3><p>仙路何方： tt76a6001be993358207</p>
-<h3 id="抖音广告ID"><a href="#抖音广告ID" class="headerlink" title="抖音广告ID"></a>抖音广告ID</h3><p>{ “rewarded_ad_id”, “2l69dgafk5c2bj9kdf” }<br>{ “interstitial_ad_id”, “5hghco49bfohph28a2” }</p>
-]]></content>
-      <categories>
-        <category>工作</category>
-      </categories>
-      <tags>
-        <tag>测试参数</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>zeus更新日志</title>
-    <url>/2025/02/11/private/zeus%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97/</url>
-    <content><![CDATA[<h2 id="2025-02-01"><a href="#2025-02-01" class="headerlink" title="2025.02.01"></a>2025.02.01</h2><p><strong>更新日志：</strong></p>
-<p>v2.19.9</p>
-<p><strong>🚀 Features</strong></p>
-<ul>
-<li>Android 调整applovin共享thinking userid 为设置到 getSettings 中</li>
-</ul>
-<p><strong>🐛 Bug Fixes</strong></p>
-<ul>
-<li>iOS 修复iOS在xcode16版本下的短信登录区号列表下拉bug</li>
-</ul>
-<h2 id="2025-02-19"><a href="#2025-02-19" class="headerlink" title="2025.02.19"></a>2025.02.19</h2><p><strong>更新日志：</strong></p>
-<p>v3.0.7</p>
-<p><strong>🚀 Features</strong></p>
-<ul>
-<li>Unity 调整GravityAgent 的实现,支持打印module config</li>
-<li>Unity 更新LoginResult结构,添加 detail</li>
-<li>Unity 添加link.xml配置，解决代码裁剪导致的问题</li>
-<li>Unity gravity enable wx and tt asmdef</li>
-<li>Unity 移除ITrack接口中的TrackRegieste,将Register设置用户唯一标识的方法放到了BaseAttribution类中的SetIdentifer方法</li>
-<li>Unity BaseAnalytic类中添加了若干方法，用来支持业务需求</li>
-<li>Unity 获取 platform 逻辑调整</li>
-<li>Unity 移除 attribution manager, 使用 baseAttributionAgent</li>
-<li>Unity 调整SDK发起协程网络请求的方式</li>
-<li>Unity 微信广告变现添加引力事件上报</li>
-<li>Unity 移除setup agent， 初始化微信， 抖音的逻辑在authentication模块中实现</li>
-<li>Unity 调整打包脚本以及ModuleConfig相关配置</li>
-<li>Unity 添加微信小游戏和抖音小游戏平台广告能力</li>
-<li>Unity 微信小游戏支付逻辑重构</li>
-<li>Unity 微信小游戏关系链功能实现</li>
-<li>Android 注释追加&amp;&amp; thinkingSDKLogClientGuideStep 修复方法名</li>
-<li>Android 移除 sentry 配置</li>
-</ul>
-]]></content>
-      <categories>
-        <category>工作</category>
-      </categories>
-      <tags>
-        <tag>zeus 版本更新</tag>
+        <tag>unity3D</tag>
       </tags>
   </entry>
 </search>
